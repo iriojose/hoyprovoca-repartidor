@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
-//import store from '@/store';
+import store from '@/store';
 
-import Home from '../views/Home.vue'
+import Home from '@/views/home/Home.vue'
 
 Vue.use(Router);
 
@@ -33,5 +33,23 @@ const router = new Router({
     fallback: true,
 });
 
+router.beforeEach((to,from,next) => {
+    let user = store.state.user.loggedIn;
 
+    if(to.meta.auth){
+        if(user){
+            next();
+        }else{
+            next({name:'login'});
+        }
+    }else{
+        if(to.name == 'login' && user){
+            next({name:'home'});
+        }else if(to.name == 'forgot' && user){
+            next({name:'forgot'});
+        }else{
+            next();
+        }
+    }
+});
 export default router;
