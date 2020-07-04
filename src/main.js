@@ -6,8 +6,9 @@ import vuetify from './plugins/vuetify';
 import Auth from '@/services/Auth';
 import "@mdi/font/css/materialdesignicons.css";
 import head from "./plugins/head";
+import toasted from "./plugins/toasted";
 
-Vue.config.productionTip = false
+Vue.config.productionTip = true;
 let token = null;
 token = window.localStorage.getItem('repartidor_token');
 

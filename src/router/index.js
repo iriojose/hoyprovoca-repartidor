@@ -2,7 +2,13 @@ import Vue from "vue";
 import Router from "vue-router";
 import store from '@/store';
 
+//home page
 import Home from '@/views/home/Home.vue'
+
+//auth views
+import Login from '@/views/auth/Login';
+import Forgot from '@/views/auth/Forgot';
+
 
 Vue.use(Router);
 
@@ -17,7 +23,23 @@ const router = new Router({
 			meta:{
                 auth:true
             },
-		},
+        },
+        {
+            path: "/login",
+            name: "login",
+            component: Login,
+            meta:{
+                auth:false
+            }
+        },
+        {
+			path: "/forgot",
+			name: "forgot",
+			component:Forgot,
+			meta:{
+                auth:false
+            }
+        }
 	],
 
 	linkActiveClass: 'router-link-active', 
