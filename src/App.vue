@@ -1,5 +1,7 @@
 <template>
 	<v-app style="background-color:#f7f7f7;">
+        <AppBar v-if="ruta()" />
+
 		<transition name="fade">
             <router-view/>
         </transition>  
@@ -7,10 +9,28 @@
 </template>
 
 <script>
+import AppBar from '@/components/navbar/AppBar';
 
-export default {
-	name: 'App',
-};
+    export default {
+        name: 'App',
+        components:{
+            AppBar,
+        },
+        methods:{
+            ruta(){
+                if(
+                    this.$route.name == 'login' || 
+                    this.$route.name == 'forgot' ||
+                    this.$route.name == 'notauthorized' ||
+                    this.$route.name == 'notfound'
+                ){
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+        }
+    };
 </script>
 
 <style lang="scss" scoped>
