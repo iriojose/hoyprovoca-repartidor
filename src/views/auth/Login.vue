@@ -167,7 +167,7 @@ import {mapActions} from 'vuex';
                     if(response.data.data.bloqueado == 1){
                         this.setModalBloqueado(true);
                         this.loading = false;
-                    }else if(response.data.data.perfil_id = 1){
+                    }else if(response.data.data.perfil_id = 4){
                         this.logged(response.data);
                         this.respuesta("Bienvenido repartidor.",'success');
                         setTimeout(() => {router.push('/');},500);
