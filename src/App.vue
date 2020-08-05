@@ -21,6 +21,7 @@ import AppBar from '@/components/navbar/AppBar';
                 if(
                     this.$route.name == 'login' || 
                     this.$route.name == 'forgot' ||
+                    this.$route.name == 'home' ||
                     this.$route.name == 'notauthorized' ||
                     this.$route.name == 'notfound'
                 ){
