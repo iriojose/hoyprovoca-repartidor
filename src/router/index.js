@@ -3,7 +3,8 @@ import Router from "vue-router";
 import store from '@/store';
 
 //home page
-import Home from '@/views/home/Home.vue'
+import Home from '@/views/home/Home.vue';
+import Dashboard from '@/views/dashboard/Dashboard';
 
 //auth views
 import Login from '@/views/auth/Login';
@@ -18,8 +19,16 @@ const router = new Router({
 	routes:[
 		{
 			path: "/",
-			name: "dashboard",
+			name: "home",
 			component: Home,
+			meta:{
+                auth:false
+            },
+        },
+        {
+			path: "/",
+			name: "dashboard",
+			component:Dashboard,
 			meta:{
                 auth:true
             },
