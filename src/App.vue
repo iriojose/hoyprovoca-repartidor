@@ -1,7 +1,5 @@
 <template>
 	<v-app style="background-color:#fff;">
-        <AppBar v-if="ruta()" />
-
 		<transition name="fade">
             <router-view/>
         </transition>  
@@ -9,34 +7,36 @@
 </template>
 
 <script>
-import AppBar from '@/components/navbar/AppBar';
+import router from '@/router';
+import Auth from '@/services/Auth';
+import {mapActions} from 'vuex';
 
     export default {
         name: 'App',
-        components:{
-            AppBar,
-        },
-        methods:{
-            ruta(){
-                if(
-                    this.$route.name == 'login' || 
-                    this.$route.name == 'forgot' ||
-                    this.$route.name == 'home' ||
-                    this.$route.name == 'notauthorized' ||
-                    this.$route.name == 'notfound'
-                ){
-                    return false;
-                }else{
-                    return true;
-                }
+        created() {
+            let token = window.localStorage.getItem('repartidor_token');
+
+            if(token != null && token != "" && token != undefined) {
+                this.sesion(token);
+                router.push("/dashboard");
             }
         },
-        mounted() {
-            
-        },  
         methods:{
-
-        }
+            ...mapActions(['logged','setModalBloqueado']),
+    
+            sesion(token){//valida el token
+                Auth().post("/sesion",{token:token}).then((response) => {
+                    if(response.data.response.data.bloqueado == 1){
+                        this.setModalBloqueado(true);
+                    }else {
+                        response.data.response.token = token;
+                        this.logged(response.data.response);
+                    }
+                }).catch(e => {
+                    console.log(e);
+                });
+            },
+        }, 
     };
 </script>
 

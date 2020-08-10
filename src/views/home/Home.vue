@@ -44,7 +44,7 @@
             <v-card-text>
                 <v-row justify="start" class="ml-12 mt-12">
                     <v-btn 
-                        to="/login" rounded color="#c9242b" 
+                        to="/login" @click="login" rounded color="#c9242b" 
                         :class="$vuetify.breakpoint.smAndDown ? 'body-1 text-capitalize white--text':'text-capitalize white--text title'" 
                         height="50" elevation="0"
                     >
@@ -115,6 +115,8 @@
 </template>
 
 <script>
+import router from '@/router';
+
 	export default {
 		head:{
             title(){
@@ -137,6 +139,11 @@
                 ]
             }
         },
+        methods:{
+            login(){
+                router.push("/login");
+            }
+        }
 	} 
 </script>
 

@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-import store from '@/store';
 
 //home page
 import Home from '@/views/home/Home.vue';
@@ -26,7 +25,7 @@ const router = new Router({
             },
         },
         {
-			path: "/",
+			path: "/dashboard",
 			name: "dashboard",
 			component:Dashboard,
 			meta:{
@@ -49,8 +48,8 @@ const router = new Router({
                 auth:false
             }
         }
-	],
-
+    ],
+    
 	linkActiveClass: 'router-link-active', 
     linkExactActiveClass: 'router-link-exact-active', 
     scrollBehavior (to, from, savedPosition) {
@@ -65,22 +64,23 @@ const router = new Router({
 });
 
 router.beforeEach((to,from,next) => {
-    let user = store.state.user.loggedIn;
+    let user = window.localStorage.getItem('repartidor_token'); //store.state.user.loggedIn;
 
     if(to.meta.auth){
         if(user){
             next();
         }else{
-            next({name:'login'});
+            next({name:'home'});
         }
     }else{
         if(to.name == 'login' && user){
-            next({name:'home'});
+            next({name:'dashboard'});
         }else if(to.name == 'forgot' && user){
-            next({name:'forgot'});
+            next({name:'dashboard'});
         }else{
             next();
         }
     }
 });
+
 export default router;

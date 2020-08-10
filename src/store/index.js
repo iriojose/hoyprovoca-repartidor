@@ -10,7 +10,8 @@ export default new Vuex.Store({
 			data:{},
 			loggedIn:false
 		},
-		bloqueado:false,
+        bloqueado:false,
+        loadingApp:false,
 	},
 	mutations: {
 		SET_MODAL_BLOQUEADO(state,val){
@@ -18,6 +19,9 @@ export default new Vuex.Store({
         },
 		SET_DATA(state,val){
             state.user.data = val;
+        },
+        SET_LOADINGAPP(state,val){
+            state.loadingApp = val;
         },
         SET_FOTO_PROFILE(state,val){
             state.user.data.imagen = val;
@@ -47,6 +51,9 @@ export default new Vuex.Store({
         logout({commit}){
             commit('LOGOUT');
         },
+        setLoading({commit},val){
+            commit("SET_LOADINGAPP",val);
+        },
         setData({commit},val){
             commit('SET_DATA',val);
 		},
@@ -56,7 +63,5 @@ export default new Vuex.Store({
 		setFotoProfile({commit},val){
             commit('SET_FOTO_PROFILE',val);
         },
-	},
-	modules: {
 	}
 });
