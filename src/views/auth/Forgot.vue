@@ -1,6 +1,9 @@
 <template>
     <v-card width="100%" elevation="0" color="#1f3b63" height="100%">
         <v-card-actions>
+            <v-btn fab small color="#2950c3" @click="home">
+                <v-icon color="#fff">mdi-home</v-icon>
+            </v-btn>
             <v-spacer></v-spacer>
             <v-btn rounded color="#2950c3" class="text-capitalize white--text caption" @click="login">
                 Iniciar sesión

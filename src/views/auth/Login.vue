@@ -1,6 +1,9 @@
 <template>
     <div class="fondo">
         <v-card-actions>
+            <v-btn fab small color="#2950c3" @click="home">
+                <v-icon color="#fff">mdi-home</v-icon>
+            </v-btn>
             <v-spacer></v-spacer>
             <v-btn rounded color="#2950c3" class="text-capitalize white--text caption" @click="forgot">
                 ¿Olvido su contraseña?
@@ -128,6 +131,12 @@ import {mapActions} from 'vuex';
             
             forgot(){
                 router.push('/forgot');
+            },
+            home(){
+                router.push("/");
+            },
+            dashboard(){
+                router.push("/dashboard");
             },
             respuesta(mensaje,type){
                 this.mensaje = mensaje;
