@@ -176,9 +176,9 @@ import {mapActions} from 'vuex';
                         this.setModalBloqueado(true);
                         this.loading = false;
                     }else if(response.data.data.perfil_id == 4){
-                        this.logged(response.data.data);
+                        this.logged(response.data);
                         this.respuesta("Bienvenido.","success");
-                        setTimeout(() => { this.home()},1000);
+                        setTimeout(() => { this.dashboard()},1000);
                     }else{
                         this.respuesta("Este usuario no es un Repartidor.","error");
                     }

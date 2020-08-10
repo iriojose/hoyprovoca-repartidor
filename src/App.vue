@@ -30,6 +30,12 @@ import AppBar from '@/components/navbar/AppBar';
                     return true;
                 }
             }
+        },
+        mounted() {
+            
+        },  
+        methods:{
+
         }
     };
 </script>
