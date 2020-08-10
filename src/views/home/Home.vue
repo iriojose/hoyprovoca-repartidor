@@ -1,6 +1,6 @@
 <template>
 	<div>
-        <v-app-bar app elevation="0" color="#fff" relative>
+        <v-app-bar app elevation="0" color="#fff">
             <v-spacer class="hidden-sm-and-up"></v-spacer>
             <div class="d-flex align-center">
                 <v-img
@@ -51,13 +51,13 @@
                         Inicia sesión
                     </v-btn>
 
-                    <v-btn 
+                    <!--v-btn 
                         to="/register" rounded outlined 
                         :class="$vuetify.breakpoint.smAndDown ? 'body-1 text-capitalize mx-2':'text-capitalize mx-10 title'" 
                         height="50" elevation="0"
                     >
                         Registrate!
-                    </v-btn>
+                    </v-btn-->
                 </v-row>
             </v-card-text>
         </v-card>
@@ -65,9 +65,17 @@
         <v-card color="#c9242b" elevation="0" width="100%">
             <v-card-text :class="$vuetify.breakpoint.smAndDown ? 'margen2':''">
                 <v-row justify="center">
-                    <v-col :cols="$vuetify.breakpoint.smAndDown ? 6:12" md="3" v-for="(n,i) in 6" :key="n" :offset="i == 0 || i == 3 || $vuetify.breakpoint.smAndDown ? '0':'1'">
-                        <v-card elevation="0" width="100%" height="300">
+                    <v-col :cols="12" md="3" v-for="(card,i) in cards" :key="i" :offset="i == 0 || i == 3 || $vuetify.breakpoint.smAndDown ? '0':'1'">
+                        <v-card elevation="0" width="100%" height="300" class="px-5">
+                            <v-avatar :color="card.color" class="mt-5">
+                                <v-icon color="#fff">{{card.icon}}</v-icon>
+                            </v-avatar>
 
+                            <v-card-title class="font-weight-black">{{card.title}}</v-card-title>
+
+                            <v-divider class="my-5"></v-divider>
+
+                            <v-card-subtitle class="font-weight-bold">{{card.text}}</v-card-subtitle>
                         </v-card>
                     </v-col>
                 </v-row>
@@ -77,45 +85,30 @@
         <v-card elevation="0" width="100%" height="200">
             <v-card-text>
                 <v-row justify="center" class="margen">
-                    <div class="text-capitalize title black--text">tu Perfecta <strong class="color">solución</strong> para enviar <strong class="color">pedidos!</strong></div>
+                    <div class="text-capitalize title black--text text-center">tu Perfecta <strong class="color">solución</strong> para enviar <strong class="color">pedidos!</strong></div>
                 </v-row>
             </v-card-text>
         </v-card>
 
-        <v-img class="mt-5" width="100%" height="200" src="@/assets/wave.svg"></v-img>
+        <v-img class="mt-5" width="100%" height="200" transition="scale-transition" src="@/assets/wave.svg"></v-img>
         <v-footer color="#c9242b" widht="100%" elevation="0" :class="$vuetify.breakpoint.smAndDown ? 'mb-10':null">
             <v-col class="text-center white--text" cols="12">
                 {{ new Date().getFullYear() }} — <strong><a style="color:white;text-decoration:none;" href="https://hoyprovoca.com">Hoyprovoca</a></strong>
             </v-col>
         </v-footer>
         
-
-        <v-bottom-navigation color="#c9242b" horizontal height="40" fixed v-if="$vuetify.breakpoint.smAndDown">
-            <v-btn>
-                <strong>
-                    <a style="color:black;text-decoration:none;" href="https://hoyprovoca.com">
-                        <v-icon color="#c9242b">mdi-basket</v-icon>
-                        Hoyprovoca
-                    </a>
-                </strong>
+        <v-bottom-navigation color="#c9242b" fixed v-if="$vuetify.breakpoint.smAndDown">
+            <v-btn href="https://hoyprovoca.com">
+                <span>Hoyprovoca</span>
+                <v-icon color="#c9242b">mdi-basket</v-icon>
             </v-btn>
-
-            <v-btn>
-                <strong>
-                    <a style="color:black;text-decoration:none;" href="https://hoyprovoca.com/admin">
-                        <v-icon color="#c9242b">mdi-chart-timeline-variant</v-icon>
-                        Administrativo
-                    </a>
-                </strong>
+            <v-btn href="https://hoyprovoca.com/admin">
+                <span>Administrativo</span>
+                <v-icon color="#c9242b">mdi-chart-timeline-variant</v-icon>
             </v-btn>
-
-            <v-btn>
-                <strong>
-                    <a style="color:black;text-decoration:none;" href="https://hoyprovoca.com/repartidores">
-                        <v-icon color="#c9242b">mdi-truck</v-icon>
-                        Repartidores
-                    </a>
-                </strong>
+            <v-btn href="https://hoyprovoca.com/repartidores">
+                <span>Repartidores</span>
+                <v-icon color="#c9242b">mdi-truck</v-icon>
             </v-btn>
         </v-bottom-navigation>
     </div>
@@ -130,6 +123,18 @@
                     separator:' ',
                     complement: ' '
                 }
+            }
+        },
+        data() {
+            return {
+                cards:[
+                    {icon:"mdi-chat-processing",color:"#00796B",title:"Chat",text:"Comunicate con los clientes por chat online."},
+                    {icon:"mdi-cogs",color:"#AFB42B",title:"Servicio 24/7",text:"Servicio disponible las 24 horas del dia."},
+                    {icon:"mdi-truck",color:"#FBC02D",title:"Entregas",text:"Entregas de pedidos segun lo convenido."},
+                    //{icon:"mdi-cogs",color:"#00796B",title:"",text:""},
+                    //{icon:"mdi-cogs",color:"#AFB42B",title:"",text:""},
+                    //{icon:"mdi-cogs",color:"#FBC02D",title:"",text:""}
+                ]
             }
         },
 	} 
@@ -158,6 +163,9 @@
     }
     .color{
         color:#c9242b;
+    }
+    .border{
+        border-radius:5%;
     }
     .ubicacion{
         width:400px;
