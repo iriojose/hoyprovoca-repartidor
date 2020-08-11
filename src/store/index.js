@@ -13,8 +13,27 @@ export default new Vuex.Store({
         bloqueado:false,
         loadingApp:false,
         drawer:false,
+        pedidosCompletados:[],
+        pedidosEntregados:[],
+        pedidosEncamino:[],
+        pedidos:[],
 	},
 	mutations: {
+        //metodos de los pedidos
+        SET_PEDIDOS(state,val){
+            for (let i = 0; i < val.length; i++) {
+                if(val[i].estatus_id == 4) state.pedidos.push(val[i]);
+                if(val[i].estatus_id == 5) status.pedidosEncamino.push(val[i]);
+                if(val[i].estatus_id == 6) status.pedidosEntregados.push(val[i]);
+            }
+        },
+        SET_PEDIDOS_COMPLETADOS(state,val){
+            state.pedidosCompletados = val;
+        },
+        SET_CHANGE_PEDIDOS(state,val){
+            state.pedidosCompletados.push(val);
+        },
+        //banderas e informacion
 		SET_MODAL_BLOQUEADO(state,val){
             val ? state.bloqueado = true:state.bloqueado = false;
         },
@@ -50,6 +69,15 @@ export default new Vuex.Store({
         },
 	},
 	actions: {
+        setPedidos({commit},val){
+            commit("SET_PEDIDOS",val);
+        },
+        setPedidosCompletados({commit},val){
+            commit("SET_PEDIDOS_COMPLETADOS",val);
+        },
+        setChangePedidos({commit},val){
+            commit("SET_CHANGE_PEDIDOS");
+        },
 		logged({commit},val){
             commit('SET_LOGGED',val);
         },
