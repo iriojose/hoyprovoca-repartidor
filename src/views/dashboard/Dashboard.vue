@@ -8,6 +8,8 @@
 
 <script>
 import AppBar from '@/components/navbar/AppBar';
+import Usuario from '@/services/Usuario';
+import Pedidos from '@/services/Pedidos';
 
     export default {
         components:{

@@ -1,11 +1,11 @@
 <template>
     <div>
-        <v-app-bar color="#fff" elevation="0">
+        <v-app-bar color="#fff" elevation="3">
             
-            <v-app-bar-nav-icon color="#000" class="mr-1" @click="change" v-if="drawer==false" />
+            <v-app-bar-nav-icon color="#c9242b" class="mr-1" @click="change" v-if="drawer==false" />
 
             <v-btn fab v-else  @click="change" icon depressed class="mr-1">
-                <v-icon color="#000">
+                <v-icon color="#c9242b">
                     mdi-close
                 </v-icon>
             </v-btn>

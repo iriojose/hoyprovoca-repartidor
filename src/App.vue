@@ -55,7 +55,6 @@ import {mapActions,mapState} from 'vuex';
                         localStorage.removeItem("repartidor_token");
                     }
                 }).catch(e => {
-                    console.log(e);
                     this.setLoading(false);
                     router.push("/");
                     localStorage.removeItem("repartidor_token");
