@@ -28,7 +28,7 @@ import variables from '@/services/variables_globales';
             return {
                 ...variables,
                 items:[
-                    {text:"Nuevos",icon:"mdi-clipboard-arrow-down",path:"/dashboard"},
+                    //{text:"Nuevos",icon:"mdi-clipboard-arrow-down",path:"/dashboard"},
                     {text:"En camino",icon:"mdi-bike-fast",path:"/dashboard/vias"},
                     {text:"Entregados",icon:"mdi-clipboard-edit",path:"/dashboard/entregados"},
                     {text:"Completados",icon:"mdi-check-bold",path:"/dashboard/completados"},
