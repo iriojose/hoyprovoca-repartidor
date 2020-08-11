@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-app-bar color="#fff" elevation="0">
-
+            
             <v-app-bar-nav-icon color="#000" class="mr-1" @click="change" v-if="drawer==false" />
 
             <v-btn fab v-else  @click="change" icon depressed class="mr-1">
@@ -38,6 +38,8 @@ import {mapState,mapActions} from 'vuex';
             ...mapState(['drawer']),
         },
         methods:{
+            ...mapActions(['setDrawer']),
+
             change(){
                 this.drawer ? this.setDrawer(false):this.setDrawer(true);
             },

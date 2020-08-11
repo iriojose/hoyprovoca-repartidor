@@ -40,14 +40,25 @@ import {mapActions,mapState} from 'vuex';
                     if(response.data.response.data.bloqueado == 1){
                         this.setModalBloqueado(true);
                         this.setLoading(false);
-                    }else {
+                        localStorage.removeItem("repartidor_token");
+                    }else if(response.data.code == 403){
+                        this.setLoading(false);
+                        localStorage.removeItem("repartidor_token");
+                        router.push("/");
+                    }else if(response.data.code == 200) {
                         response.data.response.token = token;
                         this.logged(response.data.response);
                         this.setLoading(false);
+                    }else{
+                        this.setLoading(false);
+                        router.push("/");
+                        localStorage.removeItem("repartidor_token");
                     }
                 }).catch(e => {
                     console.log(e);
                     this.setLoading(false);
+                    router.push("/");
+                    localStorage.removeItem("repartidor_token");
                 });
             },
         }, 
