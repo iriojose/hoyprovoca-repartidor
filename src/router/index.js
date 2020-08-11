@@ -9,6 +9,11 @@ import Dashboard from '@/views/dashboard/Dashboard';
 import Login from '@/views/auth/Login';
 import Forgot from '@/views/auth/Forgot';
 
+//dashboard view
+import EnCamino from '@/views/pedidos/EnCamino';
+import Completados from '@/views/pedidos/Completados';
+import Entregados from '@/views/pedidos/Entregados';
+import Chat from '@/views/chat/Chat';
 
 Vue.use(Router);
 
@@ -31,6 +36,40 @@ const router = new Router({
 			meta:{
                 auth:true
             },
+            children:[
+                {
+                    path: "vias",
+                    name: "En camino",
+                    component:EnCamino,
+                    meta: {
+                        auth: true
+                    }
+                },
+                {
+                    path: "chats",
+                    name: "Chat",
+                    component:Chat,
+                    meta: {
+                        auth: true
+                    }
+                },
+                {
+                    path: "completados",
+                    name: "Completados",
+                    component:Completados,
+                    meta: {
+                        auth: true
+                    }
+                },
+                {
+                    path: "entregados",
+                    name: "Entregados",
+                    component:Entregados,
+                    meta: {
+                        auth: true
+                    }
+                }
+            ]
         },
         {
             path: "/login",

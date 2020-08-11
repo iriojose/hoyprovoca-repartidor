@@ -3,6 +3,7 @@
 		<transition name="fade" v-if="!loadingApp">
             <router-view/>
         </transition>  
+        
         <v-card elevation="0" width="100%" height="100%" v-else>
             <v-card-text>
                 <v-row justify="center" align="center" class="fill-height">
