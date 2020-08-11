@@ -4,21 +4,21 @@
             <template v-slot:activator="{ on }">
                 <v-avatar v-on="on" :class="$vuetify.breakpoint.smAndDown ? 'mx-1':'mx-3'" size="40">
                     <v-img
-                        :src="require('@/assets/logo 3.png')"
+                        :src="user.data.imagen === 'default.png' || user.data.imagen == undefined ? require('@/assets/user.jpg'):image+user.data.imagen"
                     ></v-img>
                 </v-avatar>
             </template>
             
             <!-- lista de opciones-->
-            <v-card class="customized">
-                <!--v-list width="200" elevation="0">
+            <v-card>
+                <v-list width="200" elevation="0">
                     <v-list-item class="border">
                         <v-list-item-content>
                             <v-list-item-title v-text="user.data.nombre+' '+user.data.apellido"></v-list-item-title>
                             <v-list-item-subtitle>Repartidor</v-list-item-subtitle>
                         </v-list-item-content>
                     </v-list-item>
-                </v-list-->
+                </v-list>
                 <v-divider></v-divider>
                 <v-list dense>
                     <v-list-item to="/profile">   
@@ -49,8 +49,12 @@ import {mapActions,mapState} from 'vuex';
 import router from '@/router';
 
     export default {
+        computed:{
+            ...mapState(['user'])
+        },
         methods: {
             ...mapActions(['logout']),
+
             transition(){
                 return "slide-y-transition"
             },

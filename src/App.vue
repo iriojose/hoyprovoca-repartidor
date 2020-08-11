@@ -1,15 +1,22 @@
 <template>
 	<v-app style="background-color:#fff;">
-		<transition name="fade">
+		<transition name="fade" v-if="!loadingApp">
             <router-view/>
         </transition>  
+        <v-card elevation="0" width="100%" height="100%" v-else>
+            <v-card-text>
+                <v-row justify="center" align="center" class="fill-height">
+                    <v-img contain width="100" height="100" src="@/assets/logo 6.png"></v-img>
+                </v-row>
+            </v-card-text>
+        </v-card>
 	</v-app>
 </template>
 
 <script>
 import router from '@/router';
 import Auth from '@/services/Auth';
-import {mapActions} from 'vuex';
+import {mapActions,mapState} from 'vuex';
 
     export default {
         name: 'App',
@@ -21,19 +28,26 @@ import {mapActions} from 'vuex';
                 router.push("/dashboard");
             }
         },
+        computed:{
+            ...mapState(['loadingApp'])
+        },
         methods:{
-            ...mapActions(['logged','setModalBloqueado']),
+            ...mapActions(['logged','setModalBloqueado','setLoading']),
     
             sesion(token){//valida el token
+                this.setLoading(true);
                 Auth().post("/sesion",{token:token}).then((response) => {
                     if(response.data.response.data.bloqueado == 1){
                         this.setModalBloqueado(true);
+                        this.setLoading(false);
                     }else {
                         response.data.response.token = token;
                         this.logged(response.data.response);
+                        this.setLoading(false);
                     }
                 }).catch(e => {
                     console.log(e);
+                    this.setLoading(false);
                 });
             },
         }, 

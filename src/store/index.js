@@ -12,6 +12,7 @@ export default new Vuex.Store({
 		},
         bloqueado:false,
         loadingApp:false,
+        drawer:false,
 	},
 	mutations: {
 		SET_MODAL_BLOQUEADO(state,val){
@@ -19,6 +20,9 @@ export default new Vuex.Store({
         },
 		SET_DATA(state,val){
             state.user.data = val;
+        },
+        SET_DRAWER(state,val){
+            val ? state.drawer = true:state.drawer = false;
         },
         SET_LOADINGAPP(state,val){
             state.loadingApp = val;
@@ -63,5 +67,8 @@ export default new Vuex.Store({
 		setFotoProfile({commit},val){
             commit('SET_FOTO_PROFILE',val);
         },
+        setDrawer({commit},val){
+            commit("SET_DRAWER",val);
+        }
 	}
 });
