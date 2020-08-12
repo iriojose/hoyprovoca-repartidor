@@ -70,7 +70,6 @@ import {mapActions,mapState} from 'vuex';
                     }
                 }).catch(e => {
                     this.error = true;
-                    router.push("/");
                     //localStorage.removeItem("repartidor_token");
                 });
             },

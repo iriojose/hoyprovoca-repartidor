@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-app-bar color="#fff" elevation="3">
+        <v-app-bar color="#fff" elevation="3" app>
             
             <v-app-bar-nav-icon color="#c9242b" class="mr-1" @click="change" v-if="drawer==false" />
 
@@ -46,7 +46,3 @@ import {mapState,mapActions} from 'vuex';
         }
     }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

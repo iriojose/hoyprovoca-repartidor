@@ -1,8 +1,8 @@
 <template>
     <v-bottom-navigation color="#c9242b" fixed v-if="$vuetify.breakpoint.smAndDown">
-        <v-btn to="/dashboard/vias">
-            <span>En camino</span>
-            <v-icon color="#c9242b">mdi-bike-fast</v-icon>
+        <v-btn to="/dashboard">
+            <span>Dashboard</span>
+            <v-icon color="#c9242b">mdi-view-dashboard</v-icon>
         </v-btn>
         <v-btn to="/dashboard/completados">
             <span>Completados</span>
