@@ -1,13 +1,19 @@
 <template>
 	<v-app style="background-color:#fff;">
-		<transition name="fade" v-if="!loadingApp">
+		<transition name="fade" v-if="loadingApp == false">
             <router-view/>
         </transition>  
         
-        <v-card elevation="0" width="100%" height="100%" v-else>
+        <v-card elevation="0" width="100%" height="100%" v-if="loadingApp">
             <v-card-text>
-                <v-row justify="center" align="center" class="fill-height">
-                    <v-img contain width="100" height="100" src="@/assets/logo 6.png"></v-img>
+                <v-row justify="center" align="center" class="fill-height margen">
+                    <div>
+                        <v-img contain width="100" height="100" :src="require('@/assets/logo 3.png')"></v-img>
+                        <v-btn v-if="error" color="#c9242b" @click="sesion(token)" rounded class=" my-4 text-capitalize subtitle-2 font-weight-bold white--text">
+                            Recargar
+                            <v-icon class="mx-2" color="#fff">mdi-reload</v-icon>
+                        </v-btn>
+                    </div>
                 </v-row>
             </v-card-text>
         </v-card>
@@ -21,13 +27,19 @@ import {mapActions,mapState} from 'vuex';
 
     export default {
         name: 'App',
-        created() {
-            let token = window.localStorage.getItem('repartidor_token');
-
-            if(token != null && token != "" && token != undefined) {
-                this.sesion(token);
-                router.push("/dashboard");
+        data() {
+            return {
+                error:false,
+                token:null
             }
+        },
+        created() {
+            this.token = window.localStorage.getItem('repartidor_token');
+
+            if(this.token != null && this.token != "" && this.token != undefined) {
+                this.sesion(this.token);
+                router.push("/dashboard");
+            }else this.setLoading(false);
         },
         computed:{
             ...mapState(['loadingApp'])
@@ -36,6 +48,7 @@ import {mapActions,mapState} from 'vuex';
             ...mapActions(['logged','setModalBloqueado','setLoading']),
     
             sesion(token){//valida el token
+                this.error = false;
                 this.setLoading(true);
                 Auth().post("/sesion",{token:token}).then((response) => {
                     if(response.data.response.data.bloqueado == 1){
@@ -50,15 +63,15 @@ import {mapActions,mapState} from 'vuex';
                         response.data.response.token = token;
                         this.logged(response.data.response);
                         this.setLoading(false);
-                    }else{
+                    }else if(response.data.code == 440){
                         this.setLoading(false);
                         router.push("/");
                         localStorage.removeItem("repartidor_token");
                     }
                 }).catch(e => {
-                    this.setLoading(false);
+                    this.error = true;
                     router.push("/");
-                    localStorage.removeItem("repartidor_token");
+                    //localStorage.removeItem("repartidor_token");
                 });
             },
         }, 
@@ -66,6 +79,9 @@ import {mapActions,mapState} from 'vuex';
 </script>
 
 <style lang="scss" scoped>
+    .margen{
+        margin-top:50%;
+    }
 	.fade-enter-active, .fade-leave-active {
         transition: opacity .5s;
     }

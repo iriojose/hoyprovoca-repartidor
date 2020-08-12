@@ -11,7 +11,7 @@ export default new Vuex.Store({
 			loggedIn:false
 		},
         bloqueado:false,
-        loadingApp:false,
+        loadingApp:true,
         drawer:false,
         pedidosCompletados:[],
         pedidosEntregados:[],
