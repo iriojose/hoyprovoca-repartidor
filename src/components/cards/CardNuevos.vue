@@ -28,7 +28,22 @@
             </v-card>
         </v-col>
 
-        <Overlay :loading="loading" />
+        <Overlay :loading="loading" :error="error">
+            <template v-slot:error>
+                <v-btn @click="close" rounded color="#fff" class="text-capitalize black--text font-weight-bold">
+                    Cerrar 
+                    <v-icon class="mx-2" color="#c9242b">mdi-close</v-icon>
+                </v-btn>
+            </template>
+        </Overlay>
+
+        <ModalProducts :dialog="dialog" :conceptos="conceptos">
+            <template v-slot:close>
+                <v-btn small fab color="#c9242b" @click="dialog = false" class="ma-2">
+                    <v-icon color="#fff">mdi-close</v-icon>
+                </v-btn>
+            </template>
+        </ModalProducts>
     </v-row>
 </template>
 
@@ -36,25 +51,34 @@
 import {mapState,mapActions} from 'vuex';
 import Pedidos from '@/services/Pedidos';
 import Overlay from '@/components/overlays/Overlay';
+import ModalProducts from '@/components/modals/ModalProducts';
 
     export default {
         components:{
-            Overlay
+            Overlay,
+            ModalProducts
         },
         data() {
             return {
                 loading:false,
+                dialog:false,
+                error:false,
                 items:[
                     {title:"Recibido",icon:"mdi-arrow-down-bold-box"},
                     {title:"Productos",icon:"mdi-food"},
                     {title:"Chat-cliente",icon:"mdi-chat-processing"}
-                ]
+                ],
+                conceptos:[]
             }
         },
         computed:{
             ...mapState(['pedidos'])
         },
         methods:{
+            close(){
+                this.error = false;
+                this.loading = false;
+            },
             opcion(i,item){
                 if(i == 0) this.changeStatus(item);
                 if(i == 1) this.getProductos(item);
@@ -64,17 +88,21 @@ import Overlay from '@/components/overlays/Overlay';
                 Pedidos().post(`/${item.id}`,{data:{rest_estatus_id:5}}).then((response) => {
                     console.log(response);
                     this.loading = false;
+                    this.dialog = true;
                 }).catch(e => {
                     console.log(e);
+                    this.error = true;
                 });
             },
             getProductos(item){
                 this.loading = true;
                 Pedidos().get(`/${item.id}/conceptos`).then((response) => {
-                    console.log(response);
+                    this.conceptos = response.data.data;
                     this.loading = false;
+                    this.dialog = true;
                 }).catch(e => {
                     console.log(e);
+                    this.error = true;
                 })
             }
         }
