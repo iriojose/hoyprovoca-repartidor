@@ -40,11 +40,6 @@ import {mapState,mapActions} from 'vuex';
                 ]
             }
         },
-        watch:{
-            pedidos(){
-                console.log(pedidos);
-            }
-        },
         computed:{
             ...mapState(['pedidos'])
         },
