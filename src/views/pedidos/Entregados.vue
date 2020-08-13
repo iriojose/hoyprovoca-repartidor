@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="pedidosEntregados.length > 0" class="text-center font-weight-bold title mt-5">{{pedidosEncamino.length}} Pedidos en via</div>
+        <div v-if="pedidosEntregados.length > 0" class="text-center font-weight-bold title mt-5">{{pedidosEntregados.length}} Pedidos Entregados</div>
 
         <Card />
     </div>
