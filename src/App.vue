@@ -58,7 +58,7 @@ import {mapActions,mapState} from 'vuex';
                         this.setModalBloqueado(true);
                         this.setLoading(false);
                         localStorage.removeItem("repartidor_token");
-                    }else if(response.data.code == 403){
+                    }else if(response.data.code == 401){
                         this.setLoading(false);
                         localStorage.removeItem("repartidor_token");
                         router.push("/");
