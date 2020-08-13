@@ -8,8 +8,10 @@
             <v-card-text>
                 <v-row justify="center" align="center" class="fill-height margen">
                     <div>
-                        <v-img contain width="100" height="100" :src="require('@/assets/logo 3.png')"></v-img>
-                        <v-btn v-if="error" color="#c9242b" @click="sesion(token)" rounded class=" my-4 text-capitalize subtitle-2 font-weight-bold white--text">
+                        <v-row justify="center">
+                            <v-img contain width="100" height="100" :src="require('@/assets/logo 3.png')"></v-img>
+                        </v-row>
+                        <v-btn v-show="error" color="#c9242b" @click="sesion()" rounded class=" my-4 text-capitalize subtitle-2 font-weight-bold white--text">
                             Recargar
                             <v-icon class="mx-2" color="#fff">mdi-reload</v-icon>
                         </v-btn>
@@ -37,7 +39,7 @@ import {mapActions,mapState} from 'vuex';
             this.token = window.localStorage.getItem('repartidor_token');
 
             if(this.token != null && this.token != "" && this.token != undefined) {
-                this.sesion(this.token);
+                this.sesion();
                 router.push("/dashboard");
             }else this.setLoading(false);
         },
@@ -47,10 +49,11 @@ import {mapActions,mapState} from 'vuex';
         methods:{
             ...mapActions(['logged','setModalBloqueado','setLoading']),
     
-            sesion(token){//valida el token
+            sesion(){//valida el token
                 this.error = false;
                 this.setLoading(true);
-                Auth().post("/sesion",{token:token}).then((response) => {
+                Auth().post("/sesion",{token:this.token}).then((response) => {
+                    console.log(response);
                     if(response.data.response.data.bloqueado == 1){
                         this.setModalBloqueado(true);
                         this.setLoading(false);
@@ -60,7 +63,7 @@ import {mapActions,mapState} from 'vuex';
                         localStorage.removeItem("repartidor_token");
                         router.push("/");
                     }else if(response.data.code == 200) {
-                        response.data.response.token = token;
+                        response.data.response.token = this.token;
                         this.logged(response.data.response);
                         this.setLoading(false);
                     }else if(response.data.code == 440){

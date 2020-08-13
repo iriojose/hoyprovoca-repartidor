@@ -22,9 +22,10 @@ export default new Vuex.Store({
         //metodos de los pedidos
         SET_PEDIDOS(state,val){
             for (let i = 0; i < val.length; i++) {
-                if(val[i].estatus_id == 4) state.pedidos.push(val[i]);
-                if(val[i].estatus_id == 5) status.pedidosEncamino.push(val[i]);
-                if(val[i].estatus_id == 6) status.pedidosEntregados.push(val[i]);
+                if(val[i].rest_estatus_id == 3) state.pedidos.push(val[i]);
+                if(val[i].rest_estatus_id == 4) state.pedidos.push(val[i]);
+                if(val[i].rest_estatus_id == 5) status.pedidosEncamino.push(val[i]);
+                if(val[i].rest_estatus_id == 6) status.pedidosEntregados.push(val[i]);
             }
         },
         SET_PEDIDOS_COMPLETADOS(state,val){
