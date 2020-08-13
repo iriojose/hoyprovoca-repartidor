@@ -37,7 +37,7 @@
             </template>
         </Overlay>
 
-        <ModalProducts :dialog="dialog" :conceptos="conceptos">
+        <ModalProducts :dialog="dialog" :conceptos="conceptos" :pedido="pedido">
             <template v-slot:close>
                 <v-btn small fab color="#c9242b" @click="dialog = false" class="ma-2">
                     <v-icon color="#fff">mdi-close</v-icon>
@@ -68,7 +68,8 @@ import ModalProducts from '@/components/modals/ModalProducts';
                     {title:"Productos",icon:"mdi-food"},
                     {title:"Chat-cliente",icon:"mdi-chat-processing"}
                 ],
-                conceptos:[]
+                conceptos:[],
+                pedido:{}
             }
         },
         computed:{
@@ -97,11 +98,11 @@ import ModalProducts from '@/components/modals/ModalProducts';
             getProductos(item){
                 this.loading = true;
                 Pedidos().get(`/${item.id}/conceptos`).then((response) => {
+                    this.pedido = item;
                     this.conceptos = response.data.data;
                     this.loading = false;
                     this.dialog = true;
                 }).catch(e => {
-                    console.log(e);
                     this.error = true;
                 })
             }

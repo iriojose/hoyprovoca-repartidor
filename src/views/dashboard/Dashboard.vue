@@ -82,7 +82,6 @@ import {mapState,mapActions} from 'vuex';
                 this.error = false;
                 this.loading = true;
                 Usuario().get(`/${this.user.data.id}/pedidos`).then((response) => {
-                    console.log(response);
                     this.loading = false;
                     this.setPedidos(response.data.data);
                 }).catch(e => {
