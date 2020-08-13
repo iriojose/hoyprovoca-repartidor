@@ -82,6 +82,8 @@ import ModalProducts from '@/components/modals/ModalProducts';
             ...mapState(['pedidosEncamino'])
         },
         methods:{
+            ...mapActions(['setViaTo']),
+
             close(){
                 this.error = false;
                 this.loading = false;
@@ -91,7 +93,9 @@ import ModalProducts from '@/components/modals/ModalProducts';
                 if(i == 1) this.getProductos(item);
             },
             changeStatus(item){
-                this.loading = true;
+                item.rest_estatus_id = 6;
+                this.setViaTo(item);
+                /*this.loading = true;
                 Pedidos().post(`/${item.id}`,{data:{rest_estatus_id:6}}).then((response) => {
                     console.log(response);
                     this.loading = false;
@@ -99,7 +103,7 @@ import ModalProducts from '@/components/modals/ModalProducts';
                 }).catch(e => {
                     console.log(e);
                     this.error = true;
-                });
+                });*/
             },
             getProductos(item){
                 this.loading = true;

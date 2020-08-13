@@ -32,6 +32,22 @@ export default new Vuex.Store({
                 if(val[i].rest_estatus_id == 6) status.pedidosEntregados.push(val[i]);
             }
         },
+        //to's
+        SET_NUEVO_TO(state,val){
+            state.pedidosEncamino.push(val);
+            let index = state.pedidos.indexOf(val);
+            state.pedidos.splice(index,1);
+        },
+        SET_VIA_TO(state,val){
+            state.pedidosEntregados.push(val);
+            let index = state.pedidosEncamino.indexOf(val);
+            state.pedidosEncamino.splice(index,1);
+        },
+        SET_ENTREGADO_TO(state,val){
+            state.pedidosCompletados.push(val);
+            let index = state.pedidosEntregados.indexOf(val);
+            state.pedidosEntregados.splice(index,1);
+        },
         SET_PEDIDOS_COMPLETADOS(state,val){
             state.pedidosCompletados = val;
         },
@@ -74,15 +90,6 @@ export default new Vuex.Store({
         },
 	},
 	actions: {
-        setPedidos({commit},val){
-            commit("SET_PEDIDOS",val);
-        },
-        setPedidosCompletados({commit},val){
-            commit("SET_PEDIDOS_COMPLETADOS",val);
-        },
-        setChangePedidos({commit},val){
-            commit("SET_CHANGE_PEDIDOS");
-        },
 		logged({commit},val){
             commit('SET_LOGGED',val);
         },
@@ -103,6 +110,28 @@ export default new Vuex.Store({
         },
         setDrawer({commit},val){
             commit("SET_DRAWER",val);
-        }
+        },
+
+        //metodos pedidos
+        setNuevoTo({commit},val){
+            commit("SET_NUEVO_TO",val);
+        },
+        setViaTo({commit},val){
+            commit("SET_VIA_TO",val);
+        },
+        setEntregadoTo({commit},val){
+            commit("SET_ENTREGADO_TO",val);
+        },
+
+        //OLDS
+        setPedidos({commit},val){
+            commit("SET_PEDIDOS",val);
+        },
+        setPedidosCompletados({commit},val){
+            commit("SET_PEDIDOS_COMPLETADOS",val);
+        },
+        setChangePedidos({commit},val){
+            commit("SET_CHANGE_PEDIDOS");
+        },
 	}
 });
