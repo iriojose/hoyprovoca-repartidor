@@ -1,5 +1,5 @@
 <template>
-    <v-row justify="center" class="mx-2">
+    <v-row justify="center" class="mx-2" v-if="pedidos.length > 0">
         <v-col cols="12" md="3" v-for="(pedido,i) in pedidos" :key="i">
             <v-card width="100%" height="200" color="#212121">
 
@@ -45,6 +45,10 @@
             </template>
         </ModalProducts>
     </v-row>
+
+    <v-row justify="center" class="mx-2" v-else>
+        <Empty class="margen" title="No se encontraron resultados" />
+    </v-row>
 </template>
 
 <script>
@@ -52,11 +56,13 @@ import {mapState,mapActions} from 'vuex';
 import Pedidos from '@/services/Pedidos';
 import Overlay from '@/components/overlays/Overlay';
 import ModalProducts from '@/components/modals/ModalProducts';
+import Empty from '@/components/overlays/Empty';
 
     export default {
         components:{
             Overlay,
-            ModalProducts
+            ModalProducts,
+            Empty
         },
         data() {
             return {

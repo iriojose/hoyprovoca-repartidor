@@ -3,8 +3,8 @@
         <AppBar class="margen" />
 		
         <div v-if="$route.name == 'dashboard' && !loading">
-            <div class="text-center font-weight-bold title mt-5">Nuevos pedidos</div>
-            <v-card-actions>
+            <div v-if="pedidos.length > 0" class="text-center font-weight-bold title">{{pedidos.length}} Nuevos pedidos</div>
+            <v-card-actions v-if="pedidos.length > 0" >
                 <v-spacer></v-spacer>
                 <v-btn @click="getPedidos()" small fab color="#c9242b"><v-icon color="#fff">mdi-reload</v-icon></v-btn>
             </v-card-actions>
@@ -52,7 +52,7 @@ import {mapState,mapActions} from 'vuex';
         components:{
             AppBar,
             Footer,
-            Card
+            Card,
         },
 		head:{
             title(){
@@ -70,7 +70,7 @@ import {mapState,mapActions} from 'vuex';
             }
         },
         computed:{
-            ...mapState(['user'])
+            ...mapState(['user','pedidos'])
         },
         mounted() {
             this.getPedidos();
