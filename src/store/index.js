@@ -21,6 +21,10 @@ export default new Vuex.Store({
 	mutations: {
         //metodos de los pedidos
         SET_PEDIDOS(state,val){
+            state.pedidos = [];
+            state.pedidosEntregados = [];
+            state.pedidosEncamino = [];
+            
             for (let i = 0; i < val.length; i++) {
                 if(val[i].rest_estatus_id == 3) state.pedidos.push(val[i]);
                 if(val[i].rest_estatus_id == 4) state.pedidos.push(val[i]);

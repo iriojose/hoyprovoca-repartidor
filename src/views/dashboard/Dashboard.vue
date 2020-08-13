@@ -2,19 +2,37 @@
     <div>
         <AppBar class="margen" />
 		
-        <div v-if="$route.name == 'dashboard'">
+        <div v-if="$route.name == 'dashboard' && !loading">
             <div class="text-center font-weight-bold title mt-5">Nuevos pedidos</div>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn small fab color="#c9242b"><v-icon color="#fff">mdi-reload</v-icon></v-btn>
+                <v-btn @click="getPedidos()" small fab color="#c9242b"><v-icon color="#fff">mdi-reload</v-icon></v-btn>
             </v-card-actions>
 
             <Card />
         </div>
 
-        <transition name="fade">
+        <transition name="fade" v-if="!loading">
             <router-view/>
         </transition> 
+
+        <v-card elevation="0" width="100%" height="100%" v-if="loading">
+            <v-card-text>
+                <v-row justify="center" align="center" class="fill-height margen-space">
+                    <v-progress-circular
+                        :width="5" color="#c9242b"
+                        indeterminate v-if="loading && !error"
+                    ></v-progress-circular>
+                    <div v-else>
+                        <div class="text-center my-2 font-weight-bold title">Algo salió mal</div>
+                        <v-btn color="#c9242b" rounded @click="getPedidos()" class="white--text font-weight-bold text-capitalize">
+                            Intentar de nuevo
+                            <v-icon class="mx-2" color="#fff">mdi-reload</v-icon>
+                        </v-btn>
+                    </div>
+                </v-row>
+            </v-card-text>
+        </v-card>
 
         <div class="margen"></div>
 
@@ -61,15 +79,14 @@ import {mapState,mapActions} from 'vuex';
             ...mapActions(['setPedidos']),
 
             getPedidos(){
-                this.loading = true;
                 this.error = false;
+                this.loading = true;
                 Usuario().get(`/${this.user.data.id}/pedidos`).then((response) => {
                     console.log(response);
                     this.loading = false;
                     this.setPedidos(response.data.data);
                 }).catch(e => {
                     console.log(e);
-                    this.loading = false;
                     this.error = true;
                 });
             }
@@ -83,5 +100,8 @@ import {mapState,mapActions} from 'vuex';
     }
     .margen-botom{
         margin-top:80px;
+    }
+    .margen-space{
+        margin-top:50%;
     }
 </style>
