@@ -70,7 +70,7 @@ import ModalProducts from '@/components/modals/ModalProducts';
                 dialog:false,
                 error:false,
                 items:[
-                    {title:"Entregado",icon:"mdi-arrow-down-bold-box"},
+                    {title:"Completado",icon:"mdi-arrow-down-bold-box"},
                     {title:"Productos",icon:"mdi-food"},
                     {title:"Chat-cliente",icon:"mdi-chat-processing"}
                 ],

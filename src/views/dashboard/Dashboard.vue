@@ -4,7 +4,7 @@
 		
         <div v-if="$route.name == 'dashboard' && !loading">
             <div v-if="pedidos.length > 0" class="text-center font-weight-bold title">{{pedidos.length}} Nuevos pedidos</div>
-            <v-card-actions v-if="pedidos.length > 0" >
+            <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn @click="getPedidos()" small fab color="#c9242b"><v-icon color="#fff">mdi-reload</v-icon></v-btn>
             </v-card-actions>
