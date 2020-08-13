@@ -1,6 +1,6 @@
 <template>
     <v-dialog v-model="dialog" width="400" transition="dialog-bottom-transition" persistent>
-        <v-card height="400">
+        <v-card>
             <v-card-actions>
                 <div class="pl-5 title text-capitalize text-center font-weight-bold">{{items}} Productos</div>
                 <v-spacer></v-spacer>
@@ -10,10 +10,8 @@
             <v-virtual-scroll :items="conceptos" height="300" item-height="100">
                 <template v-slot="{item}" class="my-2">
                     <v-list-item three-line>
-                        <v-list-item-avatar size="80">
-                            <v-img :src="image+item.imagen"></v-img>
-                        </v-list-item-avatar>
-
+                        <Load :imagen="item.imagen" />
+                       
                         <v-list-item-content>
                             <v-list-item-title class="font-weight-bold">{{item.nombre}}</v-list-item-title>
                             <v-list-item-subtitle class="font-weight-bold">
@@ -37,10 +35,13 @@
 </template>
 
 <script>
-import variables from '@/services/variables_globales';
+import Load from "@/components/overlays/LoadImageAvatar";
 import accounting from 'accounting';
 
     export default {
+        components:{
+            Load
+        },
         props:{
             dialog:{
                 type:Boolean,
@@ -62,7 +63,6 @@ import accounting from 'accounting';
                     this.total+= (+a.precio_dolar) * (+this.pedido.detalles[i].cantidad);
                     a.cantidad = this.pedido.detalles[i].cantidad;
                 });
-
                 this.total = accounting.formatMoney(+this.total,{symbol:"$ ",thousand:',',decimal:'.'});
                 this.items = this.conceptos.length;
                 this.conceptos.filter(a => a.precio_dolar = accounting.formatMoney(+a.precio_dolar,{symbol:"$ ",thousand:',',decimal:'.'}));
@@ -70,7 +70,6 @@ import accounting from 'accounting';
         },
         data(){
             return {
-                ...variables,
                 total:0,
                 items:0
             }
