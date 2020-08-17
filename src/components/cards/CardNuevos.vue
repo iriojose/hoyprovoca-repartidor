@@ -93,17 +93,15 @@ import Empty from '@/components/overlays/Empty';
                 if(i == 1) this.getProductos(item);
             },
             changeStatus(item){
-                //this.loading = true;
-                item.rest_estatus_id = 5;
-                this.setNuevoTo(item);
-                /*Pedidos().post(`/${item.id}`,{data:{rest_estatus_id:5}}).then((response) => {
+                this.loading = true;
+                Pedidos().post(`/${item.id}`,{data:{rest_estatus_id:5}}).then((response) => {
                     console.log(response);
+                    item.rest_estatus_id = 5;
+                    this.setNuevoTo(item);
                     this.loading = false;
-                    this.dialog = true;
                 }).catch(e => {
-                    console.log(e);
                     this.error = true;
-                });*/
+                });
             },
             getProductos(item){
                 this.loading = true;

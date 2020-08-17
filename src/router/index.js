@@ -19,7 +19,7 @@ Vue.use(Router);
 
 const router = new Router({
     mode: "history",
-	base:'/repartidor',
+	base:'/repartidores',
 	routes:[
 		{
 			path: "/",
