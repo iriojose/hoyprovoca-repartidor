@@ -92,6 +92,22 @@ import Empty from '@/components/overlays/Empty';
                 if(i == 0) this.changeStatus(item);
                 if(i == 1) this.getProductos(item);
             },
+            success(mensaje){
+                this.$toasted.success(mensaje, { 
+                    theme: "toasted-primary", 
+                    position: "top-right", 
+                    duration : 2000,
+                    //icon : "mdi-done",
+                });
+            },
+            errorMessage(mensaje){
+                this.$toasted.error(mensaje, { 
+                    theme: "toasted-primary", 
+                    position: "top-right", 
+                    duration : 2000,
+                    //icon : "error",
+                });
+            },
             changeStatus(item){
                 this.loading = true;
                 Pedidos().post(`/${item.id}`,{data:{rest_estatus_id:5}}).then((response) => {
@@ -99,8 +115,10 @@ import Empty from '@/components/overlays/Empty';
                     item.rest_estatus_id = 5;
                     this.setNuevoTo(item);
                     this.loading = false;
+                    this.success("Pedido recibido exitosamente.");
                 }).catch(e => {
                     this.error = true;
+                    this.errorMessage("Error al cambiar el estatus del pedido.");
                 });
             },
             getProductos(item){
@@ -112,7 +130,7 @@ import Empty from '@/components/overlays/Empty';
                     this.dialog = true;
                 }).catch(e => {
                     this.error = true;
-                })
+                });
             }
         }
     }
