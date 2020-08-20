@@ -110,11 +110,11 @@ import ModalProducts from '@/components/modals/ModalProducts';
             },
             changeStatus(item){
                 this.loading = true;
-                Pedidos().post(`/${item.id}`,{data:{rest_estatus_id:6}}).then((response) => {
+                Pedidos().post(`/${item.id}`,{data:{rest_estatus_id:7}}).then((response) => {
                     this.loading = false;
-                    item.rest_estatus_id = 6;
+                    item.rest_estatus_id = 7;
                     this.setEntregadoTo(item);
-                    this.success("Pedido Entregado exitosamente.");
+                    this.success("Pedido Completado exitosamente.");
                 }).catch(e => {
                     this.error = true;
                     this.errorMessage("Error al cambiar el estatus del pedido.");
