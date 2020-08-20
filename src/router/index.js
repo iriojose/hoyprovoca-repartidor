@@ -15,6 +15,10 @@ import Completados from '@/views/pedidos/Completados';
 import Entregados from '@/views/pedidos/Entregados';
 import Chat from '@/views/chat/Chat';
 
+//view profile
+import Account from '@/views/account/Account';
+import Profile from '@/views/account/Profile';
+
 Vue.use(Router);
 
 const router = new Router({
@@ -86,6 +90,24 @@ const router = new Router({
 			meta:{
                 auth:false
             }
+        },
+        {
+            path: "/account",
+			name: "account",
+			component:Account,
+			meta:{
+                auth:true
+            },
+            children:[
+                {
+                    path: "profile",
+                    name: "profile",
+                    component:Profile,
+                    meta:{
+                        auth:true
+                    },
+            }
+            ]
         }
     ],
     
