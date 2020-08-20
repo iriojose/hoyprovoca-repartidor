@@ -111,7 +111,6 @@ import Empty from '@/components/overlays/Empty';
             changeStatus(item){
                 this.loading = true;
                 Pedidos().post(`/${item.id}`,{data:{rest_estatus_id:5}}).then((response) => {
-                    console.log(response);
                     item.rest_estatus_id = 5;
                     this.setNuevoTo(item);
                     this.loading = false;

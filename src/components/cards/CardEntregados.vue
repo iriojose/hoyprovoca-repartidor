@@ -88,22 +88,37 @@ import ModalProducts from '@/components/modals/ModalProducts';
                 this.error = false;
                 this.loading = false;
             },
+            success(mensaje){
+                this.$toasted.success(mensaje, { 
+                    theme: "toasted-primary", 
+                    position: "top-right", 
+                    duration : 2000,
+                    //icon : "mdi-done",
+                });
+            },
+            errorMessage(mensaje){
+                this.$toasted.error(mensaje, { 
+                    theme: "toasted-primary", 
+                    position: "top-right", 
+                    duration : 2000,
+                    //icon : "error",
+                });
+            },
             opcion(i,item){
                 if(i == 0) this.changeStatus(item);
                 if(i == 1) this.getProductos(item);
             },
             changeStatus(item){
-                item.rest_estatus_id = 7;
-                this.setEntregadoTo(item);
-                /*this.loading = true;
+                this.loading = true;
                 Pedidos().post(`/${item.id}`,{data:{rest_estatus_id:6}}).then((response) => {
-                    console.log(response);
                     this.loading = false;
-                    this.dialog = true;
+                    item.rest_estatus_id = 6;
+                    this.setEntregadoTo(item);
+                    this.success("Pedido Entregado exitosamente.");
                 }).catch(e => {
-                    console.log(e);
                     this.error = true;
-                });*/
+                    this.errorMessage("Error al cambiar el estatus del pedido.");
+                });
             },
             getProductos(item){
                 this.loading = true;
