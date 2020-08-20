@@ -1,6 +1,6 @@
 <template>
     <div>
-        <AppBar class="margen" />
+        <AppBar class="margen2" />
 		
         <div v-if="$route.name == 'dashboard' && !loading">
             <div v-if="pedidos.length > 0" class="text-center font-weight-bold title">{{pedidos.length}} Nuevos pedidos</div>
@@ -83,7 +83,7 @@ import {mapState,mapActions} from 'vuex';
                 this.loading = true;
                 Usuario().get(`/${this.user.data.id}/pedidos`).then((response) => {
                     this.loading = false;
-                    this.setPedidos(response.data.data);
+                    if(response.data.data) this.setPedidos(response.data.data); 
                 }).catch(e => {
                     console.log(e);
                     this.error = true;
@@ -96,6 +96,9 @@ import {mapState,mapActions} from 'vuex';
 <style lang="scss">
     .margen{
         margin-bottom:70px;
+    }
+    .margen2{
+        margin-bottom:60px;
     }
     .margen-botom{
         margin-top:80px;

@@ -53,7 +53,6 @@ import {mapActions,mapState} from 'vuex';
                 this.error = false;
                 this.setLoading(true);
                 Auth().post("/sesion",{token:this.token}).then((response) => {
-                    console.log(response.data.code);
                     if(response.data.response.data.bloqueado == 1){
                         this.setModalBloqueado(true);
                         this.setLoading(false);

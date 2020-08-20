@@ -24,12 +24,11 @@ export default new Vuex.Store({
             state.pedidos = [];
             state.pedidosEntregados = [];
             state.pedidosEncamino = [];
-            
             for (let i = 0; i < val.length; i++) {
                 if(val[i].rest_estatus_id == 3) state.pedidos.push(val[i]);
                 if(val[i].rest_estatus_id == 4) state.pedidos.push(val[i]);
-                if(val[i].rest_estatus_id == 5) status.pedidosEncamino.push(val[i]);
-                if(val[i].rest_estatus_id == 6) status.pedidosEntregados.push(val[i]);
+                if(val[i].rest_estatus_id == 5) state.pedidosEncamino.push(val[i]);
+                if(val[i].rest_estatus_id == 6) state.pedidosEntregados.push(val[i]);
             }
         },
         //to's
