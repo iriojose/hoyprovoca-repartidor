@@ -6,7 +6,7 @@
         
         <v-card elevation="0" width="100%" height="100%" v-if="loadingApp">
             <v-card-text>
-                <v-row justify="center" align="center" class="fill-height margen">
+                <v-row justify="center" :class="$vuetify.breakpoint.smAndDown ? 'margen':'margen-web'">
                     <div>
                         <v-row justify="center">
                             <v-img contain width="100" height="100" :src="require('@/assets/logo 3.png')"></v-img>
@@ -53,20 +53,22 @@ import {mapActions,mapState} from 'vuex';
                 this.error = false;
                 this.setLoading(true);
                 Auth().post("/sesion",{token:this.token}).then((response) => {
+                    console.log(response.data.code);
                     if(response.data.response.data.bloqueado == 1){
                         this.setModalBloqueado(true);
                         this.setLoading(false);
+                        this.error = false;
                         localStorage.removeItem("repartidor_token");
-                    }else if(response.data.code == 401){
-                        this.setLoading(false);
-                        localStorage.removeItem("repartidor_token");
-                        router.push("/");
-                    }else if(response.data.code == 200) {
+                    } 
+                    if(response.data.code == 200) {
                         response.data.response.token = this.token;
                         this.logged(response.data.response);
                         this.setLoading(false);
-                    }else if(response.data.code == 440){
+                        this.error = false;
+                    }
+                    if(response.data.code == 440){
                         this.setLoading(false);
+                        this.error = false;
                         router.push("/");
                         localStorage.removeItem("repartidor_token");
                     }
@@ -82,6 +84,9 @@ import {mapActions,mapState} from 'vuex';
 <style lang="scss" scoped>
     .margen{
         margin-top:50%;
+    }
+    .margen-web{
+        margin-top:20%;
     }
 	.fade-enter-active, .fade-leave-active {
         transition: opacity .5s;
