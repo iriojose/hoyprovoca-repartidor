@@ -1,5 +1,7 @@
 <template>
    <div>
+       <AppBar class="margen2" />
+
        <v-card color="transparent" elevation="0" width="100%">
             <v-card-text>
                 <v-row justify="center">
@@ -72,10 +74,12 @@
 <script>
 import {mapState, mapActions} from 'vuex';
 import variables from '@/services/variables_globales';
+import AppBar from '@/components/navbar/AppBar';
 
     export default {
         components:{
-            CambiarImagen:() => import('@/components/dialogs/CambiarImagen')
+            CambiarImagen:() => import('@/components/modals/CambiarImagen'),
+            AppBar,
         },
         data() {
             return {
@@ -117,6 +121,9 @@ import variables from '@/services/variables_globales';
 </script>
 
 <style lang="scss" scoped>
+    .margen2{
+        margin-bottom:60px;
+    }
     .color{
         background: #17468b;
     }

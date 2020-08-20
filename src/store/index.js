@@ -87,6 +87,9 @@ export default new Vuex.Store({
             //window.localStorage.clear();//se elimina el cache guardado
             //window.localStorage.removeItem('admin_token');//se elimina el token del storage
         },
+        SET_FOTO_PROFILE(state,val){
+            state.user.data.imagen = val;
+        },
 	},
 	actions: {
 		logged({commit},val){
@@ -109,6 +112,9 @@ export default new Vuex.Store({
         },
         setDrawer({commit},val){
             commit("SET_DRAWER",val);
+        },
+        setFotoProfile({commit},val){
+            commit('SET_FOTO_PROFILE',val);
         },
 
         //metodos pedidos
