@@ -47,7 +47,7 @@
     </v-row>
 
     <v-row justify="center" class="mx-2" v-else>
-        <Empty class="margen" title="No se encontraron resultados" />
+        <Empty :class="$vuetify.breakpoint.smAndDown ? 'margen':'margen-web'" title="No se encontraron resultados" />
     </v-row>
 </template>
 
@@ -134,3 +134,12 @@ import Empty from '@/components/overlays/Empty';
         }
     }
 </script>
+
+<style lang="scss">
+    .margen-web{
+        margin-top:15%;
+    }
+    .margen{
+        margin-top:30%;
+    }
+</style>
