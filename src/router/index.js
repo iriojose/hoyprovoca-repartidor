@@ -106,7 +106,7 @@ const router = new Router({
                     meta:{
                         auth:true
                     },
-            }
+                }
             ]
         }
     ],
