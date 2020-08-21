@@ -98,6 +98,10 @@
                 Editar
             </v-btn>
         </v-card-actions>
+
+        <div class="margen"></div>
+
+        <Footer />
     </v-card>
 </template>
 
@@ -108,8 +112,12 @@ import Auth from '@/services/Auth';
 import validations from '@/validations/validations';
 import Nots from '@/services/Nots';
 import variables from '@/services/variables_globales';
+import Footer from '@/components/footer/FooterDashboard';
 
     export default {
+        components:{
+            Footer
+        },
         data() {
             return {
                 ...variables,
@@ -222,3 +230,9 @@ import variables from '@/services/variables_globales';
         },
     }
 </script>
+
+<style lang="scss">
+    .margen{
+        margin-bottom:70px;
+    }
+</style>
