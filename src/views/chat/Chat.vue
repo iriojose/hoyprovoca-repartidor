@@ -27,7 +27,7 @@ import w from '@/services/variables_globales';
                 return {
                     inner: "Hoyprovoca",
                     separator:'|',
-                    complement:'Atención al cliente'
+                    complement:'Chat'
                 };
             }
         },

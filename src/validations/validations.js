@@ -47,12 +47,11 @@ let positivo = (properType) => {
     return v => v && regex.test(v) || `${properType} Debe ser mayor a cero`;
 }
 
-
-//incompleto, falta expresion regular para los 4 primeros numeros del telefono
-/*let telefonoFormat = () => {
-    let regex= aa;
-    return v => v && regex.test(v) || `debe ser un telefono válido`;
-}*/
+let telefonoFormat = () => {
+    // eslint-disable-next-line
+    let regex = /^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/;
+    return v => v && regex.test(v) || `debe ser un numero de telefono válido`;
+}
 
 export default{
     required,
@@ -64,5 +63,6 @@ export default{
     number,
     cedula,
     positivo,
-    requiredBoolean
+    requiredBoolean,
+    telefonoFormat
 }

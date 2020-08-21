@@ -101,7 +101,7 @@ const router = new Router({
             children:[
                 {
                     path: "profile",
-                    name: "profile",
+                    name: "perfil",
                     component:Profile,
                     meta:{
                         auth:true
