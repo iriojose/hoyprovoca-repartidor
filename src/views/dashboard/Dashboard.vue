@@ -20,10 +20,6 @@
         <v-card elevation="0" width="100%" height="100%" v-if="loading">
             <v-card-text>
                 <v-row justify="center" align="center" class="fill-height margen-space">
-                    <!--v-progress-circular
-                        :width="5" color="#c9242b"
-                        indeterminate v-if="loading && !error"
-                    ></v-progress-circular-->
                     <Loading v-if="loading && !error" />
                     <div v-else>
                         <div class="text-center my-2 font-weight-bold title">Algo salió mal</div>

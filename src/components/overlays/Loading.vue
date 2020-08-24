@@ -2,7 +2,7 @@
     <div class="loader-container mx-2">
         <div class="spinner yellow">
         </div>
-        <img src="https://hoyprovoca.com/2.ico" width="80px" height="80" class="abs-center blink">
+        <v-img width="80" height="80" src="@/assets/2.png" class="abs-center blink"></v-img>
     </div>
 </template>
 
