@@ -55,6 +55,7 @@
 import Empty from '@/components/overlays/Empty';
 import {mapState,mapActions} from 'vuex';
 import Pedidos from '@/services/Pedidos';
+import Clientes from '@/services/Clientes';
 import Overlay from '@/components/overlays/Overlay';
 import ModalProducts from '@/components/modals/ModalProducts';
 
@@ -91,6 +92,7 @@ import ModalProducts from '@/components/modals/ModalProducts';
             opcion(i,item){
                 if(i == 0) this.changeStatus(item);
                 if(i == 1) this.getProductos(item);
+                if(i == 2) this.getCliente(item);
             },
             success(mensaje){
                 this.$toasted.success(mensaje, { 
@@ -129,7 +131,10 @@ import ModalProducts from '@/components/modals/ModalProducts';
                     this.dialog = true;
                 }).catch(e => {
                     this.error = true;
-                })
+                });
+            },
+            getCliente(item){
+                console.log(item);
             }
         }
     }

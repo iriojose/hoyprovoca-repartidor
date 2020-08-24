@@ -53,6 +53,12 @@ import {mapActions,mapState} from 'vuex';
                 this.error = false;
                 this.setLoading(true);
                 Auth().post("/sesion",{token:this.token}).then((response) => {
+                    if(response.data.code == 440){
+                        this.setLoading(false);
+                        this.error = false;
+                        router.push("/");
+                        localStorage.removeItem("repartidor_token");
+                    }
                     if(response.data.response.data.bloqueado == 1){
                         this.setModalBloqueado(true);
                         this.setLoading(false);
@@ -64,12 +70,6 @@ import {mapActions,mapState} from 'vuex';
                         this.logged(response.data.response);
                         this.setLoading(false);
                         this.error = false;
-                    }
-                    if(response.data.code == 440){
-                        this.setLoading(false);
-                        this.error = false;
-                        router.push("/");
-                        localStorage.removeItem("repartidor_token");
                     }
                 }).catch(e => {
                     this.error = true;
