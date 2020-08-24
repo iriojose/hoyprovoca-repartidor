@@ -106,9 +106,9 @@
                 <span>Administrativo</span>
                 <v-icon color="#c9242b">mdi-chart-timeline-variant</v-icon>
             </v-btn>
-            <v-btn href="https://hoyprovoca.com/repartidores">
-                <span>Repartidores</span>
-                <v-icon color="#c9242b">mdi-truck</v-icon>
+            <v-btn to="/login">
+                <span>Inicia sesión</span>
+                <v-icon color="#c9242b">mdi-exit-to-app</v-icon>
             </v-btn>
         </v-bottom-navigation>
     </div>
