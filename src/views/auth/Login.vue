@@ -1,5 +1,5 @@
 <template>
-    <div class="fondo">
+    <div>
         <v-card-actions>
             <v-btn fab small color="#2950c3" @click="home">
                 <v-icon color="#fff">mdi-home</v-icon>
@@ -13,14 +13,14 @@
         <v-card color="transparent" elevation="0" width="100%">
             <v-card-text>
                 <v-row justify="center">
-                    <v-img transition="scale-transition" contain width="100" height="50" :src="require('@/assets/logo 6.png')"></v-img>
+                    <v-img transition="scale-transition" contain width="100" height="50" :src="require('@/assets/logo2.png')"></v-img>
                 </v-row>
             </v-card-text>
 
             <v-card-text>
                 <v-row justify="center" class="py-2">
                     <v-col cols="12" md="9" sm="12">
-                        <v-card width="100%" elevation="0">
+                        <v-card width="100%" elevation="2">
                             <v-row justify="center">
                                 <v-col cols="12" md="6" class="hidden-sm-and-down">
                                     <v-img width="100%" height="400" contain :src="require('@/assets/delivery.svg')"></v-img>
@@ -83,8 +83,8 @@
             </v-card-text>
         </v-card>
 
-        <v-footer fixed class="font-weight-medium" elevation="0" color="#1f3b63">
-            <v-col class="text-center white--text" cols="12">
+        <v-footer fixed class="font-weight-medium" elevation="0" color="#fff">
+            <v-col class="text-center black--text" cols="12">
                 {{ new Date().getFullYear() }} — <strong>Hoyprovoca</strong> 
             </v-col>
         </v-footer>
