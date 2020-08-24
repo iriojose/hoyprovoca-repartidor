@@ -1,7 +1,8 @@
 <template>
     <div>
-        <AppBar class="margen2" />
-		
+        <AppBar />
+		<div class="margen2"></div>
+
         <div v-if="$route.name == 'dashboard' && !loading">
             <div v-if="pedidos.length > 0" class="text-center font-weight-bold title">{{pedidos.length}} Nuevos pedidos</div>
             <v-card-actions>
@@ -19,10 +20,11 @@
         <v-card elevation="0" width="100%" height="100%" v-if="loading">
             <v-card-text>
                 <v-row justify="center" align="center" class="fill-height margen-space">
-                    <v-progress-circular
+                    <!--v-progress-circular
                         :width="5" color="#c9242b"
                         indeterminate v-if="loading && !error"
-                    ></v-progress-circular>
+                    ></v-progress-circular-->
+                    <Loading v-if="loading && !error" />
                     <div v-else>
                         <div class="text-center my-2 font-weight-bold title">Algo salió mal</div>
                         <v-btn color="#c9242b" rounded @click="getPedidos()" class="white--text font-weight-bold text-capitalize">
@@ -46,6 +48,7 @@ import Usuario from '@/services/Usuario';
 import Pedidos from '@/services/Pedidos';
 import Footer from '@/components/footer/FooterDashboard';
 import Card from '@/components/cards/CardNuevos';
+import Loading from '@/components/overlays/Loading';
 import {mapState,mapActions} from 'vuex';
 
     export default {
@@ -53,6 +56,7 @@ import {mapState,mapActions} from 'vuex';
             AppBar,
             Footer,
             Card,
+            Loading
         },
 		head:{
             title(){
