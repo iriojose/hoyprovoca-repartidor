@@ -29,6 +29,7 @@ export default new Vuex.Store({
                 if(val[i].rest_estatus_id == 4) state.pedidos.push(val[i]);
                 if(val[i].rest_estatus_id == 5) state.pedidosEncamino.push(val[i]);
                 if(val[i].rest_estatus_id == 6) state.pedidosEntregados.push(val[i]);
+                if(val[i].rest_estatus_id == 7) state.pedidosCompletados.push(val[i]);
             }
         },
         //to's

@@ -85,7 +85,6 @@ import {mapState,mapActions} from 'vuex';
                     this.loading = false;
                     if(response.data.data) this.setPedidos(response.data.data); 
                 }).catch(e => {
-                    console.log(e);
                     this.error = true;
                 });
             }
