@@ -8,10 +8,11 @@
             <v-card-text>
                 <v-row justify="center" :class="$vuetify.breakpoint.smAndDown ? 'margen':'margen-web'">
                     <div>
-                        <v-row justify="center">
+                        <v-row justify="center" v-if="!error">
                             <!--v-img contain width="100" height="100" :src="require('@/assets/logo 3.png')"></v-img-->
                             <Loading />
                         </v-row>
+                        <div v-show="error" class="text-center my-2 font-weight-bold title">Algo salió mal</div>
                         <v-btn v-show="error" color="#c9242b" @click="sesion()" rounded class=" my-4 text-capitalize subtitle-2 font-weight-bold white--text">
                             Recargar
                             <v-icon class="mx-2" color="#fff">mdi-reload</v-icon>

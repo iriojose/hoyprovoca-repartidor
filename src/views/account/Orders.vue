@@ -31,11 +31,13 @@ import Card from '@/components/cards/CardCompletados';
 import Usuario from '@/services/Usuario';
 import {mapState,mapActions} from 'vuex';
 import Footer from '@/components/footer/FooterDashboard';
+import Loading from '@/components/overlays/Loading';
 
     export default {
         components:{
             Card,
-            Footer
+            Footer,
+            Loading
         },
         data() {
             return {
