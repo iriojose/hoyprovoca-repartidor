@@ -11,13 +11,13 @@ import Forgot from '@/views/auth/Forgot';
 
 //dashboard view
 import EnCamino from '@/views/pedidos/EnCamino';
-import Completados from '@/views/pedidos/Completados';
 import Entregados from '@/views/pedidos/Entregados';
 import Chat from '@/views/chat/Chat';
 
 //view profile
 import Account from '@/views/account/Account';
 import Profile from '@/views/account/Profile';
+import Orders from '@/views/account/Orders';
 
 Vue.use(Router);
 
@@ -53,14 +53,6 @@ const router = new Router({
                     path: "chats",
                     name: "Chat",
                     component:Chat,
-                    meta: {
-                        auth: true
-                    }
-                },
-                {
-                    path: "completados",
-                    name: "Completados",
-                    component:Completados,
                     meta: {
                         auth: true
                     }
@@ -106,8 +98,16 @@ const router = new Router({
                     meta:{
                         auth:true
                     },
+                },
+                {
+                    path: "orders",
+                    name: "ordenes",
+                    component:Orders,
+                    meta:{
+                        auth:true
+                    },
                 }
-            ]
+            ],
         }
     ],
     

@@ -31,7 +31,7 @@ import variables from '@/services/variables_globales';
                     {text:"Dashboard",icon:"mdi-view-dashboard",path:"/dashboard"},
                     {text:"En camino",icon:"mdi-bike-fast",path:"/dashboard/vias"},
                     {text:"Entregados",icon:"mdi-clipboard-edit",path:"/dashboard/entregados"},
-                    {text:"Completados",icon:"mdi-check-bold",path:"/dashboard/completados"},
+                    {text:"Completados",icon:"mdi-check-bold",path:"/account/orders"},
                     {text:"Chats",icon:"mdi-chat-processing",path:"/dashboard/chats"},
                 ]
             }

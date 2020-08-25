@@ -88,7 +88,7 @@ import AppBar from '@/components/navbar/AppBar';
                 items: [
                     {icon:'mdi-cogs', to:'/account/profile',title:'Ajustes de Cuenta'},
                     //{icon:'mdi-history',to:'/account/notificaciones',title:'Centro de Notificaciones'},
-                    {icon:'mdi-alert-circle',to:'/account/ordenes',title:'Ordenes Completadas'},
+                    {icon:'mdi-alert-circle',to:'/account/orders',title:'Ordenes Completadas'},
                     //{icon: 'mdi-help-circle',to:'/account/ayuda',title:'Atención al cliente'},
                 ],
                 dialog:false,
