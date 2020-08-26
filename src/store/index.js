@@ -17,8 +17,13 @@ export default new Vuex.Store({
         pedidosEntregados:[],
         pedidosEncamino:[],
         pedidos:[],
+        //variable del cliente para inicializar el chat
+        cliente:null
 	},
 	mutations: {
+        SET_CLIENTE(state,val){
+            state.cliente = val;
+        },
         //metodos de los pedidos
         SET_PEDIDOS(state,val){
             state.pedidos = [];
@@ -93,6 +98,9 @@ export default new Vuex.Store({
         },
 	},
 	actions: {
+        setCliente({commit},val){
+            commit("SET_CLIENTE",val);
+        },
 		logged({commit},val){
             commit('SET_LOGGED',val);
         },

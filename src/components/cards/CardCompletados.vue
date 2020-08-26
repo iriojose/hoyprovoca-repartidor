@@ -52,9 +52,11 @@
 </template>
 
 <script>
+import router from '@/router';
 import Empty from '@/components/overlays/Empty';
 import {mapState,mapActions} from 'vuex';
 import Pedidos from '@/services/Pedidos';
+import Clientes from '@/services/Clientes';
 import Overlay from '@/components/overlays/Overlay';
 import ModalProducts from '@/components/modals/ModalProducts';
 
@@ -81,12 +83,23 @@ import ModalProducts from '@/components/modals/ModalProducts';
             ...mapState(['pedidosCompletados'])
         },
         methods:{
+            ...mapActions(['setCliente']),
+            
+            errorMessage(mensaje){
+                this.$toasted.error(mensaje, { 
+                    theme: "toasted-primary", 
+                    position: "top-right", 
+                    duration : 2000,
+                    //icon : "error",
+                });
+            },
             close(){
                 this.error = false;
                 this.loading = false;
             },
             opcion(i,item){
                 if(i == 0) this.getProductos(item);
+                if(i == 1) this.getClientes(item);
             },
             getProductos(item){
                 this.loading = true;
@@ -97,7 +110,18 @@ import ModalProducts from '@/components/modals/ModalProducts';
                     this.dialog = true;
                 }).catch(e => {
                     this.error = true;
-                })
+                });
+            },
+            getClientes(item){
+                this.loading = true;
+                Clientes().get(`/${item.adm_clientes_id}`).then((response) => {
+                    this.loading = false;
+                    this.setCliente(response.data.data);
+                    router.push("/dashboard/chats");
+                }).catch(e => {
+                    this.error = true;
+                    this.errorMessage("Error al traer la información del cliente");
+                });
             }
         }
     }

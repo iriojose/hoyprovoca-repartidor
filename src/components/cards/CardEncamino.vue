@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import router from '@/router';
 import Empty from '@/components/overlays/Empty';
 import {mapState,mapActions} from 'vuex';
 import Pedidos from '@/services/Pedidos';
@@ -83,7 +84,7 @@ import ModalProducts from '@/components/modals/ModalProducts';
             ...mapState(['pedidosEncamino'])
         },
         methods:{
-            ...mapActions(['setViaTo']),
+            ...mapActions(['setViaTo','setCliente']),
 
             close(){
                 this.error = false;
@@ -134,7 +135,15 @@ import ModalProducts from '@/components/modals/ModalProducts';
                 });
             },
             getCliente(item){
-                console.log(item);
+                this.loading = true;
+                Clientes().get(`/${item.adm_clientes_id}`).then((response) => {
+                    this.loading = false;
+                    this.setCliente(response.data.data);
+                    router.push("/dashboard/chats");
+                }).catch(e => {
+                    this.error = true;
+                    this.errorMessage("Error al traer la información del cliente");
+                });
             }
         }
     }

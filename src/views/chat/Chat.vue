@@ -3,15 +3,8 @@
         <div class="font-weight-black title" style="padding-top:10px;text-align:center;">Chat</div>
         <v-row justify="center" align="center" class="mt-3" style="padding-top:15px;">
             <v-scroll-x-transition>
-                <div v-show="!loading" id="talkjs-container" style="width: 100%;; height: 450px"><i><v-spacer></v-spacer><v-spacer></v-spacer></i></div>
+                <div id="talkjs-container" style="width: 100%;; height: 450px"><i><v-spacer></v-spacer><v-spacer></v-spacer></i></div>
             </v-scroll-x-transition>
-            <v-progress-circular
-                indeterminate
-                color="#0f2441"
-                v-if="loading"
-                width="5"
-                size="100"
-            ></v-progress-circular>
         </v-row>
     </v-card>
 </template>
@@ -40,60 +33,52 @@ import w from '@/services/variables_globales';
             }
         },
         computed:{
-            ...mapState(['user']),
+            ...mapState(['user','cliente']),
+        },
+        watch:{
+            cliente(){
+                this.init();
+            }
         },
         methods:{
-            ...mapActions(['setSnackbar','setFoto','setFotoChanged']),
-        },
-        mounted() {
-            this.loading = true;
-            let inbox;
-            // cambiar teamlead por cualquier otro email de soporte
-            Talk.ready.then(async () => {
-            this.me = new Talk.User({
-                id: this.user.data.id !== 2 ? this.user.data.email : "teamlead@somossistemas.com",
-                name: this.user.data.id !== 2 ? this.user.data.nombre + " " + this.user.data.apellido: "Soporte SOMOS SISTEMAS C.A",
-                email: this.user.data.id !== 2 ? this.user.data.email !== "" ? this.user.data.email : null : "teamlead@somossistemas.com", 
-                photoUrl: this.user.data.id !== 2 ? this.user.data.imagen === 'default.png' ? require('@/assets/user.jpg') : this.image+this.user.data.imagen : require('@/assets/AFTIM.png'),
-                welcomeMessage: this.user.data.id !== 2 ?  "Hola, soy "+this.user.data.nombre : "En Somos Sistemas C.A, estamos encantados de ayudarte a solventar tus problemas. Déjanos un mensaje!",
-                role: 'Customer',
-                locale: 'es-ES'
-            });
-            window.talkSession = new Talk.Session({
-                appId: process.env.VUE_APP_TALKJS_ID,
-                me: this.me
-            });        
-            
-            if(this.user.data.id !== 2){
-                // Cambiar teamlead por cualquier otro correo de soporte
-                this.other = new Talk.User({
-                    id: "teamlead@somossistemas.com",
-                    name: "Soporte SOMOS SISTEMAS C.A",
-                    email: "teamlead@somossistemas.com",
-                    photoUrl: require('@/assets/AFTIM.png'),
-                    welcomeMessage: "En Somos Sistemas C.A, estamos encantados de ayudarte a solventar tus problemas. Déjanos un mensaje!",
-                        role:'Support',
+            init(){
+                let inbox;
+                // cambiar teamlead por cualquier otro email de soporte
+                Talk.ready.then(async () => {
+                    this.me = new Talk.User({
+                        id: this.user.data.id !== 2 ? this.user.data.email : "teamlead@somossistemas.com",
+                        name: this.user.data.id !== 2 ? this.user.data.nombre + " " + this.user.data.apellido: "Soporte HOYPROVOCA.COM",
+                        email: this.user.data.id !== 2 ? this.user.data.email !== "" ? this.user.data.email : null : "teamlead@somossistemas.com", 
+                        photoUrl: this.user.data.id !== 2 ? this.user.data.imagen === 'default.png' ? require('@/assets/user.jpg') : this.image+this.user.data.imagen : require('@/assets/2.png'),
+                        welcomeMessage: this.user.data.id !== 2 ?  "Hola, soy "+this.user.data.nombre : "En Somos Sistemas C.A, estamos encantados de ayudarte a solventar tus problemas. Déjanos un mensaje!",
+                        role: 'Delivery',
+                        locale: 'es-ES'
+                    });
+                    window.talkSession = new Talk.Session({
+                        appId: process.env.VUE_APP_TALKJS_ID,
+                        me: this.me
+                    });        
+
+                    this.other = new Talk.User({
+                        id: this.cliente ? this.cliente.correo_electronico:"teamlead@somossistemas.com",
+                        name: this.cliente ? this.cliente.nombre:"Soporte HOYPROVOCA.COM",
+                        email: this.cliente ? this.cliente.correo_electronico:"teamlead@somossistemas.com",
+                        photoUrl: this.cliente ? require('@/assets/2.png'):require('@/assets/2.png'),
+                        //welcomeMessage: this.cliente ?  "Bienvenido, a donde desea que se envie su pedido":"En Hoyprovoca, estamos encantados de ayudarte a enviar tus pedidos. Déjanos un mensaje!",
+                        role:this.cliente ? 'Cliente':'Soporte',
                         locale: 'es-ES'
                     });
                     let conversation = window.talkSession.getOrCreateConversation(Talk.oneOnOneId(this.me, this.other));
                     conversation.setParticipant(this.me);
                     conversation.setParticipant(this.other);
                     inbox = window.talkSession.createInbox({selected: conversation});
-                    this.loading = false;
-                }else{
-                    window.talkSession = new Talk.Session({
-                        appId: process.env.VUE_APP_TALKJS_ID,
-                        me: this.me
-                    });
-                    let conversation = window.talkSession.getOrCreateConversation(Talk.oneOnOneId(this.me));
-                    conversation.setParticipant(this.me);
-                        
-                    inbox = window.talkSession.createInbox({selected: conversation});
-                    this.loading = false;
-                }
-                inbox.mount(document.getElementById("talkjs-container"));
-                this.loading = false;
-            });
+                    
+                    inbox.mount(document.getElementById("talkjs-container"));
+                });
+            },
+        },
+        mounted() {
+            this.init();   
         }
     }
 </script>

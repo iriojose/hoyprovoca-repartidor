@@ -52,8 +52,10 @@
 </template>
 
 <script>
+import router from '@/router';
 import {mapState,mapActions} from 'vuex';
 import Pedidos from '@/services/Pedidos';
+import Clientes from '@/services/Clientes';
 import Overlay from '@/components/overlays/Overlay';
 import ModalProducts from '@/components/modals/ModalProducts';
 import Empty from '@/components/overlays/Empty';
@@ -82,7 +84,7 @@ import Empty from '@/components/overlays/Empty';
             ...mapState(['pedidos'])
         },
         methods:{
-            ...mapActions(['setNuevoTo']),
+            ...mapActions(['setNuevoTo','setCliente']),
 
             close(){
                 this.error = false;
@@ -91,6 +93,7 @@ import Empty from '@/components/overlays/Empty';
             opcion(i,item){
                 if(i == 0) this.changeStatus(item);
                 if(i == 1) this.getProductos(item);
+                if(i == 2) this.getCliente(item);
             },
             success(mensaje){
                 this.$toasted.success(mensaje, { 
@@ -129,6 +132,17 @@ import Empty from '@/components/overlays/Empty';
                     this.dialog = true;
                 }).catch(e => {
                     this.error = true;
+                });
+            },
+            getCliente(item){
+                this.loading = true;
+                Clientes().get(`/${item.adm_clientes_id}`).then((response) => {
+                    this.loading = false;
+                    this.setCliente(response.data.data);
+                    router.push("/dashboard/chats");
+                }).catch(e => {
+                    this.error = true;
+                    this.errorMessage("Error al traer la información del cliente");
                 });
             }
         }
