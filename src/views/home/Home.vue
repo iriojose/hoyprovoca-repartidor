@@ -33,7 +33,7 @@
         </v-app-bar>
 
         <div :class="$vuetify.breakpoint.smAndDown ? 'text-capitalize font-weight-bold letras-sm ml-5':'letras text-capitalize font-weight-bold ml-12'">
-            Conectate con tu <strong class="color">Comprador</strong> para el envio de su <strong class="color">pedido</strong>!
+            Contacta a tu <strong class="color">Comprador</strong> y entrega su <strong class="color">pedido</strong>!
         </div>
 
         <div class="ubicacion">
@@ -179,7 +179,7 @@ import router from '@/router';
         height:300px;
         position: absolute;
         right:1%;
-        top:5%;
+        top:0%;
         z-index:2;
     }
     .card{

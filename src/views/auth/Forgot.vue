@@ -82,7 +82,7 @@
             </v-row>
         </v-card-text>
 
-        <v-footer fixed class="font-weight-medium" elevation="0" color="#fff">
+        <v-footer class="font-weight-medium" elevation="0" color="#fff">
             <v-col class="text-center black--text" cols="12">
                 {{ new Date().getFullYear() }} — <strong>Hoyprovoca</strong> 
             </v-col>
