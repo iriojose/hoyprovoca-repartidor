@@ -3,8 +3,8 @@
         <AppBar />
 		<div class="margen2"></div>
 
-        <div v-if="$route.name == 'dashboard' && !loading">
-            <div v-if="pedidos.length > 0" class="text-center font-weight-bold title">{{pedidos.length}} Nuevos pedidos</div>
+        <div v-if="$route.name == 'dashboard' && !loading" class="py-5">
+            <div v-if="pedidos.length > 0" class="text-center font-weight-bold title">Se te asignaron <span class="red--text">{{pedidos.length}} pedidos</span> nuevos</div>
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn @click="getPedidos()" small fab color="#c9242b"><v-icon color="#fff">mdi-reload</v-icon></v-btn>

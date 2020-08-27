@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div v-if="pedidosEntregados.length > 0" class="text-center font-weight-bold title mt-5">{{pedidosEntregados.length}} Pedidos Entregados</div>
+    <div class="py-5">
+        <div v-if="pedidosEntregados.length > 0" class="text-center font-weight-bold title mt-5">Has entregado <span class="red--text"> {{pedidosEntregados.length}} Pedidos</span></div>
 
         <Card />
     </div>
