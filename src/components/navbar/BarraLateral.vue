@@ -1,7 +1,7 @@
 <template>
     <v-navigation-drawer 
-        app v-model="drawers" temporary hide-overlay width="220" color="#c9242b"
-        style="margin-top:60px"
+        app v-model="drawers" temporary hide-overlay width="220" color="#232323"
+        style="margin-top:58px"
     >
         <v-list color="transparent">
             <v-subheader class="white--text text-center">Hoyprovoca</v-subheader>
