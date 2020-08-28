@@ -83,50 +83,30 @@ export default {
           me: this.me
         });
 
-        /*if(this.user.data.id !== 2){
-                        // Cambiar teamlead por cualquier otro correo de soporte
-                        this.other = new Talk.User({
-                            id: this.cliente ? this.cliente.correo_electronico:"teamlead@somossistemas.com",
-                            name: this.cliente ? this.cliente.nombre:"Soporte HOYPROVOCA.COM",
-                            email: this.cliente ? this.cliente.correo_electronico:"teamlead@somossistemas.com",
-                            photoUrl: this.cliente ? require('@/assets/2.png'):require('@/assets/2.png'),
-                            //welcomeMessage: this.cliente ?  "Bienvenido, a donde desea que se envie su pedido":"En Hoyprovoca, estamos encantados de ayudarte a enviar tus pedidos. Déjanos un mensaje!",
-                            role:this.cliente ? 'Cliente':'Soporte',
-                            locale: 'es-ES'
-                        });
-                    
-                        let conversation = window.talkSession.getOrCreateConversation(Talk.oneOnOneId(this.me, this.other));
-                        conversation.setParticipant(this.me);
-                        conversation.setParticipant(this.other);
-                        inbox = window.talkSession.createInbox({selected: conversation});
-                    }else{
-                        window.talkSession = new Talk.Session({
-                            appId: process.env.VUE_APP_TALKJS_ID,
-                            me: this.me
-                        });
-                        let conversation = window.talkSession.getOrCreateConversation(Talk.oneOnOneId(this.me));
-                        conversation.setParticipant(this.me);    
-                        inbox = window.talkSession.createInbox({selected: conversation});
-                    }*/
         if (this.user.data.id !== 2) {
           // Cambiar teamlead por cualquier otro correo de soporte
           this.other = new Talk.User({
-            id: "teamlead@somossistemas.com",
-            name: "Soporte SOMOS SISTEMAS C.A",
-            email: "teamlead@somossistemas.com",
-            photoUrl: require("@/assets/AFTIM.png"),
-            welcomeMessage:
-              "En Somos Sistemas C.A, estamos encantados de ayudarte a solventar tus problemas. Déjanos un mensaje!",
+            id: this.cliente
+              ? this.cliente.correo_electronico
+              : "teamlead@somossistemas.com",
+            name: this.cliente ? this.cliente.nombre : "Soporte HOYPROVOCA.COM",
+            email: this.cliente
+              ? this.cliente.correo_electronico
+              : "teamlead@somossistemas.com",
+            photoUrl: this.cliente
+              ? require("@/assets/2.png")
+              : require("@/assets/2.png"),
+            //welcomeMessage: this.cliente ?  "Bienvenido, a donde desea que se envie su pedido":"En Hoyprovoca, estamos encantados de ayudarte a enviar tus pedidos. Déjanos un mensaje!",
             role: "Support",
             locale: "es-ES"
           });
+
           let conversation = window.talkSession.getOrCreateConversation(
             Talk.oneOnOneId(this.me, this.other)
           );
           conversation.setParticipant(this.me);
           conversation.setParticipant(this.other);
           inbox = window.talkSession.createInbox({ selected: conversation });
-          this.loading = false;
         } else {
           window.talkSession = new Talk.Session({
             appId: process.env.VUE_APP_TALKJS_ID,
@@ -136,10 +116,9 @@ export default {
             Talk.oneOnOneId(this.me)
           );
           conversation.setParticipant(this.me);
-
           inbox = window.talkSession.createInbox({ selected: conversation });
-          this.loading = false;
         }
+
         inbox.mount(document.getElementById("talkjs-container"));
       });
     }
