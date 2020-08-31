@@ -44,6 +44,25 @@
                 </v-btn>
             </template>
         </ModalProducts>
+
+        <UpdateOrder title="¿Estas seguro de marcar el pedido como recogido?" :dialog="dialogUpdate">
+            <template v-slot:salir>
+                <v-btn 
+                    class="text-capitalize font-weight-bold" 
+                    :disabled="loading" @click="dialogUpdate = false"
+                >
+                    No, Volver
+                </v-btn>
+            </template>
+            <template v-slot:ir>
+                <v-btn 
+                    :loading="loading" color="#232323" @click="changeStatus(item)"
+                    class="white--text text-capitalize font-weight-bold"
+                >
+                    Sí, seguro
+                </v-btn>
+            </template>
+        </UpdateOrder>
     </v-row>
 
     <v-row justify="center" class="mx-2" v-else>
@@ -59,23 +78,27 @@ import Clientes from '@/services/Clientes';
 import Overlay from '@/components/overlays/Overlay';
 import ModalProducts from '@/components/modals/ModalProducts';
 import Empty from '@/components/overlays/Empty';
+import UpdateOrder from '@/components/modals/UpdateOrder';
 
     export default {
         components:{
             Overlay,
             ModalProducts,
-            Empty
+            Empty,
+            UpdateOrder
         },
         data() {
             return {
                 loading:false,
+                dialogUpdate:false,
                 dialog:false,
                 error:false,
                 items:[
-                    {title:"Recibido",icon:"mdi-arrow-down-bold-box"},
-                    {title:"Productos",icon:"mdi-food"},
+                    {title:"Cambiar estado",icon:"mdi-arrow-down-bold-box"},
+                    {title:"Detalles",icon:"mdi-food"},
                     {title:"Chat-cliente",icon:"mdi-chat-processing"}
                 ],
+                item:null,
                 conceptos:[],
                 pedido:{}
             }
@@ -91,7 +114,8 @@ import Empty from '@/components/overlays/Empty';
                 this.loading = false;
             },
             opcion(i,item){
-                if(i == 0) this.changeStatus(item);
+                this.item = item;
+                if(i == 0) this.dialogUpdate = true;//this.changeStatus(item);
                 if(i == 1) this.getProductos(item);
                 if(i == 2) this.getCliente(item);
             },
@@ -112,6 +136,7 @@ import Empty from '@/components/overlays/Empty';
                 });
             },
             changeStatus(item){
+                this.dialogUpdate = false;
                 this.loading = true;
                 Pedidos().post(`/${item.id}`,{data:{rest_estatus_id:5}}).then((response) => {
                     item.rest_estatus_id = 5;
