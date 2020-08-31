@@ -1,14 +1,14 @@
 <template>
     <v-dialog v-model="dialog" width="400" transition="dialog-bottom-transition" persistent>
         <v-card>
-            <v-card-title class="font-weight-black">
+            <v-card-title class="font-weight-bold">
                 <v-spacer></v-spacer>
-                    Actualizar estado del pedido
+                    Actualizar pedido
                 <v-spacer></v-spacer>
             </v-card-title>
 
             <v-card-text>
-                <div class="text-center font-weight-black subtitle-1 grey--text my-5">
+                <div class="text-center font-weight-black subtitle-1 my-5">
                     {{title}}
                 </div>
 
@@ -17,7 +17,7 @@
                     <slot name="ir"></slot>
                 </v-row>
 
-                <v-alert class="mt-5" border="left" colored-border type="info" elevation="2">
+                <v-alert class="mt-12" border="left" colored-border type="info" elevation="2">
                     El cliente sera notificado de la actualización del pedido
                 </v-alert>
             </v-card-text>
@@ -40,7 +40,3 @@
         },
     }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

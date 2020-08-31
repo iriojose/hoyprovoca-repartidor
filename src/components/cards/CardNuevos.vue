@@ -75,6 +75,7 @@ import router from '@/router';
 import {mapState,mapActions} from 'vuex';
 import Pedidos from '@/services/Pedidos';
 import Clientes from '@/services/Clientes';
+import Nots from '@/services/Nots';
 import Overlay from '@/components/overlays/Overlay';
 import ModalProducts from '@/components/modals/ModalProducts';
 import Empty from '@/components/overlays/Empty';
@@ -143,6 +144,7 @@ import UpdateOrder from '@/components/modals/UpdateOrder';
                     this.setNuevoTo(item);
                     this.loading = false;
                     this.success("Pedido recibido exitosamente.");
+                    this.getEmail(item.adm_clientes_id);
                 }).catch(e => {
                     this.error = true;
                     this.errorMessage("Error al cambiar el estatus del pedido.");
@@ -169,7 +171,28 @@ import UpdateOrder from '@/components/modals/UpdateOrder';
                     this.error = true;
                     this.errorMessage("Error al traer la información del cliente");
                 });
-            }
+            },
+            getEmail(id){
+                Clientes().get(`/${id}/`).then((response) => {
+                    this.sendNots(response.data.data.correo_electronico);
+                }).catch(e => {
+                    this.errorMessage("No se pudo enviar la notificación.");
+                });
+            },
+            sendNots(email){
+                let data = {
+                    link:"https://hoyprovoca.com/account/soporte",
+                    subject:"Actualizacion de estado de su pedido",
+                    type:"any",
+                    email:email,
+                    message:`Su repartidor a actualizado el estado de su pedido a recogido.`
+                };
+                Nots().post("/mail/sendmail",{data:data}).then(() => {
+                    this.success("Notificación enviada al cliente.");
+                }).catch(e => {
+                    this.errorMessage("No se pudo enviar la notificación.");
+                });
+            },
         }
     }
 </script>
