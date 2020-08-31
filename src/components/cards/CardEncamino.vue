@@ -137,6 +137,7 @@ import UpdateOrder from '@/components/modals/UpdateOrder';
                 });
             },
             changeStatus(item){
+                this.dialogUpdate = false;
                 this.loading = true;
                 Pedidos().post(`/${item.id}`,{data:{rest_estatus_id:6}}).then((response) => {
                     this.loading = false;

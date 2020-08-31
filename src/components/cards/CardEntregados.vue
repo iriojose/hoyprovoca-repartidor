@@ -137,6 +137,7 @@ import UpdateOrder from '@/components/modals/UpdateOrder';
                 if(i == 2) this.getCliente(item);
             },
             changeStatus(item){
+                this.dialogUpdate = false;
                 this.loading = true;
                 Pedidos().post(`/${item.id}`,{data:{rest_estatus_id:7}}).then((response) => {
                     this.loading = false;
