@@ -46,9 +46,15 @@
 
 <script>
 import {mapActions,mapState} from 'vuex';
+import variables from '@/services/variables_globales';
 import router from '@/router';
 
     export default {
+        data(){
+            return {
+                ...variables
+            }
+        },
         computed:{
             ...mapState(['user'])
         },
