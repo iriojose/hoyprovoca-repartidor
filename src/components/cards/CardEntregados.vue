@@ -44,6 +44,25 @@
                 </v-btn>
             </template>
         </ModalProducts>
+
+        <UpdateOrder title="¿Estas seguro de marcar el pedido como Entregado?" :dialog="dialogUpdate">
+            <template v-slot:salir>
+                <v-btn 
+                    class="text-capitalize font-weight-bold" 
+                    :disabled="loading" @click="dialogUpdate = false"
+                >
+                    No, Volver
+                </v-btn>
+            </template>
+            <template v-slot:ir>
+                <v-btn 
+                    :loading="loading" color="#232323" @click="changeStatus(item)"
+                    class="white--text text-capitalize font-weight-bold"
+                >
+                    Sí, seguro
+                </v-btn>
+            </template>
+        </UpdateOrder>
     </v-row>
 
     <v-row justify="center" class="mx-2" v-else>
@@ -59,21 +78,25 @@ import Pedidos from '@/services/Pedidos';
 import Clientes from '@/services/Clientes';
 import Overlay from '@/components/overlays/Overlay';
 import ModalProducts from '@/components/modals/ModalProducts';
+import UpdateOrder from '@/components/modals/UpdateOrder';
 
     export default {
         components:{
             Overlay,
             ModalProducts,
-            Empty
+            Empty,
+            UpdateOrder
         },
         data() {
             return {
                 loading:false,
                 dialog:false,
+                dialogUpdate:false,
+                item:null,
                 error:false,
                 items:[
-                    {title:"Completado",icon:"mdi-arrow-down-bold-box"},
-                    {title:"Productos",icon:"mdi-food"},
+                    {title:"Cambiar estado",icon:"mdi-arrow-down-bold-box"},
+                    {title:"Detalles",icon:"mdi-food"},
                     {title:"Chat-cliente",icon:"mdi-chat-processing"}
                 ],
                 conceptos:[],
@@ -107,7 +130,8 @@ import ModalProducts from '@/components/modals/ModalProducts';
                 });
             },
             opcion(i,item){
-                if(i == 0) this.changeStatus(item);
+                this.item = item;
+                if(i == 0) this.dialogUpdate = true;//this.changeStatus(item);
                 if(i == 1) this.getProductos(item);
                 if(i == 2) this.getCliente(item);
             },
@@ -118,6 +142,7 @@ import ModalProducts from '@/components/modals/ModalProducts';
                     item.rest_estatus_id = 7;
                     this.setEntregadoTo(item);
                     this.success("Pedido Completado exitosamente.");
+                    this.getEmail(item.adm_clientes_id);
                 }).catch(e => {
                     this.error = true;
                     this.errorMessage("Error al cambiar el estatus del pedido.");
@@ -144,7 +169,28 @@ import ModalProducts from '@/components/modals/ModalProducts';
                     this.error = true;
                     this.errorMessage("Error al traer la información del cliente");
                 });
-            }
+            },
+            getEmail(id){
+                Clientes().get(`/${id}/`).then((response) => {
+                    this.sendNots(response.data.data.correo_electronico);
+                }).catch(e => {
+                    this.errorMessage("No se pudo enviar la notificación.");
+                });
+            },
+            sendNots(email){
+                let data = {
+                    link:"https://hoyprovoca.com/account/soporte",
+                    subject:"Actualizacion de estado de su pedido",
+                    type:"any",
+                    email:email,
+                    message:`Su repartidor a actualizado el estado de su pedido a Completado.`
+                };
+                Nots().post("/mail/sendmail",{data:data}).then(() => {
+                    this.success("Notificación enviada al cliente.");
+                }).catch(e => {
+                    this.errorMessage("No se pudo enviar la notificación.");
+                });
+            },
         }
     }
 </script>
